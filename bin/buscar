@@ -1,0 +1,93 @@
+#!/bin/bash
+
+
+#if [ -z "$1" ]; then
+#	echo "Usage: $0 <text>"
+#	echo "";
+#	exit 0;
+#fi
+
+#if [ ! -z "$2" ]; then
+#	FILES="$2"
+#fi
+
+# busqueda original
+#grep "$1" -RniI --color=ALWAYS * | grep -v ".svn/text-base/" | grep -v "\.svn\/"
+
+# ahora el grep no debe ser recursivo
+#
+#grep "$1" -niI --color=ALWAYS `find ./ -name "$FILES" \
+#		  | grep -v '\/\.svn\/\?' \
+#		  | grep -vi '\.\(tgz\|tar\.gz\|zip\|jpg\|gif\|png\|swf\)$' `
+
+if [ -z "$1" ]; then
+	echo "Usage: $0 <text> (sudo|path) [grep_options]"
+	echo ""
+	echo " Examples:"
+	echo "# $0 word sudo /etc/ --exclude=*.php"
+	echo "# $0 word /etc/ --exclude=*.conf"
+	echo "# $0 word sudo --exclude=*.conf"
+	echo "";
+	exit 0;
+fi
+
+WORD=$1
+shift;
+MYSUDO=""
+MYDIR="."
+MODE="normal"
+
+while [ $# -gt 0 ];
+do
+	if [ "$1" == "sudo" ]; then
+		MYSUDO="sudo"
+		shift;
+		continue;
+	fi
+	if [ -d "$1" ]; then
+		MYDIR=$1
+		shift
+		continue;
+	fi
+	if [ "$1" == "--mode-web" ]; then
+		MODE="web"
+		shift;
+		continue;
+	fi
+	break;
+done;
+
+case $MODE in
+	web)
+		$MYSUDO find $MYDIR -type f \
+			-a -not -path '*.svn/*' \
+			-a \( \
+				-name "*.php" \
+				-o -name "*.tpl" \
+				-o -name "*.htm*" \
+				-o -name "*.js" \
+				-o -name "*.css" \
+				-o -name "*.xml" \
+				-o -name "*.sh" \
+			\) \
+			-exec grep -niIH --color=ALWAYS "$WORD" $@ {} \; 
+	;;
+	*)
+		$MYSUDO find $MYDIR -type f \
+			-a -not -path '*.svn/*' \
+			-a -not -name "*.tgz" \
+			-a -not -name "*.gz" \
+			-a -not -name "*.bz2" \
+			-a -not -name "*.zip" \
+			-a -not -name "*.jpg" \
+			-a -not -name "*.ico" \
+			-a -not -name "*.png" \
+			-a -not -name "*.swf" \
+			-a -not -name "*.pem" \
+			-exec grep -niIH --color=ALWAYS "$WORD" $@ {} \; 
+
+	;;
+esac
+
+# se puede poner buscar "mipalabra" include=*.sh para solo buscar en los ficheros sh
+exit 0;
