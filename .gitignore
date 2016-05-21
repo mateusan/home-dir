@@ -1,6 +1,8 @@
-/.vim/myid.vim
-/.bash_autocommands
 *
 !.gitignore
 !.bash*
-!.vim*
+!.vimrc
+!.vim/*
+!/bin/*
+/.vim/myid.vim
+/.bash_autocommands
