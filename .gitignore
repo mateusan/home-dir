@@ -3,6 +3,6 @@
 !.bash*
 !.vimrc
 !.vim/*
-!/bin/*
+!bin/*.*
 /.vim/myid.vim
 /.bash_autocommands
