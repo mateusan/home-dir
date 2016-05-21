@@ -1,8 +1,11 @@
 *
+!bin
+!bin/*
 !.gitignore
+!README.md
 !.bash*
 !.vimrc
+!.vim
 !.vim/*
-!bin/*.*
-/.vim/myid.vim
-/.bash_autocommands
+.vim/myid.vim
+.bash_autocommands
