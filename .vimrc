@@ -174,7 +174,7 @@ set nobackup
 "set backupdir=~/.tmp
 
 "===================================
-" PESTAÃ‘AS 
+" PESTAÑAS
 "===================================
 
 set tabline=%!MyTabLine()
@@ -225,6 +225,8 @@ map ,1 :tabprevious
 map ,2 :tabnext
 map ,t :tabnew
 map ,e :tabedit
+" mover a nueva pestaña
+map ,w <C-W>T 
 map <C-t> :tabnew<CR>
 map <C-left> :tabprevious<CR>
 map <C-right> :tabnext<CR>
