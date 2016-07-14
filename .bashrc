@@ -193,4 +193,7 @@ if which sudo &>/dev/null; then
 
 	# AutoComplete commands
 	complete -F _aptitude install purge show search remove
+
+	alias salt-key='sudo salt-key'
+	alias salt='sudo salt'
 fi
