@@ -9,3 +9,4 @@ function! DetectSls()
 endfunction
 
 :au BufNewFile,BufRead *.sls,Saltfile call DetectSls()
+:au BufNewFile,BufRead *.jinja,Saltfile call DetectSls()
