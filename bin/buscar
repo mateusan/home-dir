@@ -69,6 +69,9 @@ case $MODE in
 				-o -name "*.css" \
 				-o -name "*.xml" \
 				-o -name "*.sh" \
+				-o -name "*.sls" \
+				-o -name "*.jinja" \
+				-o -name "*.conf" \
 			\) \
 			-exec grep -niIH --color=ALWAYS "$WORD" $@ {} \; 
 	;;
