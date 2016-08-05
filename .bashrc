@@ -177,6 +177,8 @@ function ms_extract()
 _completion_loader apt-get
 _completion_loader aptitude
 
+alias ifconfig="sudo ifconfig"
+
 # Aptitude
 if which sudo &>/dev/null; then
 	alias apt-get='sudo apt-get'
