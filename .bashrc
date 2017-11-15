@@ -174,10 +174,11 @@ function ms_extract()
 ## BASH ALIAS
 ##########################################################################################
 
-_completion_loader apt-get
-_completion_loader aptitude
+_completion_loader apt-get &>/dev/null
+_completion_loader aptitude &>/dev/null
 
 alias ifconfig="sudo ifconfig"
+alias qm="sudo qm"
 
 # Aptitude
 if which sudo &>/dev/null; then
