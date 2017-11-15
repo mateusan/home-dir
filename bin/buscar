@@ -61,6 +61,7 @@ case $MODE in
 	web)
 		$MYSUDO find $MYDIR -type f \
 			-a -not -path '*.svn/*' \
+			-a -not -path '*.git/*' \
 			-a \( \
 				-name "*.php" \
 				-o -name "*.tpl" \
@@ -72,12 +73,21 @@ case $MODE in
 				-o -name "*.sls" \
 				-o -name "*.jinja" \
 				-o -name "*.conf" \
+				-o -name "*.cgi" \
+				-o -name "*.fcgi" \
+				-o -name "*.pl" \
+				-o -name "*.shtm" \
+				-o -name "*.shtml" \
+				-o -name "*.lib" \
+				-o -name "*.sql" \
+				-o -name ".htaccess" \
 			\) \
-			-exec grep -niIH --color=ALWAYS "$WORD" $@ {} \; 
+			-exec grep --text -niIH --color=ALWAYS "$WORD" $@ {} \; 
 	;;
 	*)
 		$MYSUDO find $MYDIR -type f \
 			-a -not -path '*.svn/*' \
+			-a -not -path '*.git/*' \
 			-a -not -name "*.tgz" \
 			-a -not -name "*.gz" \
 			-a -not -name "*.bz2" \
