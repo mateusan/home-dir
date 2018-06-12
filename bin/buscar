@@ -93,6 +93,8 @@ case $MODE in
 			-a -not -name "*.bz2" \
 			-a -not -name "*.zip" \
 			-a -not -name "*.jpg" \
+			-a -not -name "*.jpeg" \
+			-a -not -name "*.gif" \
 			-a -not -name "*.ico" \
 			-a -not -name "*.png" \
 			-a -not -name "*.swf" \
