@@ -94,7 +94,6 @@ esac
 ## Historial por nombre de servidor
 
 fqdn=$(hostname -f)
-PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %T}] ${Brown}\$${Normal} "
 mkdir -p ${HOME}/.history/ && chmod 744 ${HOME}/.history/
 export HISTFILE=${HOME}/.history/${fqdn}
 touch $HISTFILE
@@ -184,6 +183,42 @@ escapeshellarguments() {
       echo -n "$i "
    done
 }
+
+parse_svn_branch() {
+	 svn info --show-item=relative-url 2>/dev/null  | grep "^\^/\(branches\|trunk\)" | cut -d/ -f2-3 | sed -e "s/branches\///" -e "s/\/.*$//"
+}
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+controlversion_branch_to_prompt() {
+	branch=$(parse_svn_branch)
+	if [ "$branch" != "" ]; then
+		echo -ne " \e[0;31;49m[svn:"
+		if [ "$branch" == "trunk" ]; then
+			echo -ne "\e[1;31;49m$branch"
+		else
+			echo -ne "\e[39;41m$branch"
+		fi
+		revision=$(svn info --show-item=revision)
+		echo -ne "\e[0;31;49m rev:$revision]"
+	fi
+
+	branch=$(parse_git_branch)
+	if [ "$branch" != "" ]; then
+		remoteURL=$(git config --get remote.origin.url)
+		if [ $remoteURL != 'https://github.com/mateusan/home-dir' ]; then
+			echo -ne " \e[0;31;49m[git:"
+			echo -ne "\e[1;31;49m$branch"
+			echo -ne "\e[0;31;49m]"
+		fi
+	fi
+
+}
+
+PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %T}]"
+PS1="$PS1\$(controlversion_branch_to_prompt)${Normal}"
+PS1="$PS1 ${Brown}\$${Normal} "
+
 
 
 ##########################################################################################
