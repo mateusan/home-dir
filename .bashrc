@@ -201,3 +201,8 @@ if which sudo &>/dev/null; then
 	alias salt='sudo salt'
 	alias salt-call='sudo salt-call'
 fi
+
+if [ -d ~/bin/svn-wrapper ]; then
+	PATH=${PATH}:~/bin/svn-wrapper
+	alias svn="~/bin/svn-wrapper/svn-wrapper.sh $@"
+fi
