@@ -13,6 +13,10 @@ fi
 # Local Binaries
 if [ -d ~/bin ]; then
 	PATH=${PATH}:~/bin
+	for f in $(find $HOME/bin -mindepth 1 -maxdepth 1 -type d);
+	do
+		PATH="$PATH:$f"
+	done
 fi
 
 # Local AutoCommands
