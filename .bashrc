@@ -170,6 +170,22 @@ function ms_extract()
     fi
 }
 
+# funcion para escapar argumentos del bash
+#args=$(escapeshellarguments "$@")
+
+escapeshellarguments() {
+   whitespace="[[:space:]]"
+   for i in "$@"
+   do  
+       if [[ $i =~ $whitespace ]]
+       then
+           i=\"$i\"
+       fi  
+      echo -n "$i "
+   done
+}
+
+
 ##########################################################################################
 ## BASH ALIAS
 ##########################################################################################
