@@ -68,6 +68,7 @@ case $MODE in
 				-o -name "*.htm*" \
 				-o -name "*.js" \
 				-o -name "*.css" \
+				-o -name "*.less" \
 				-o -name "*.xml" \
 				-o -name "*.sh" \
 				-o -name "*.sls" \

@@ -199,4 +199,5 @@ if which sudo &>/dev/null; then
 
 	alias salt-key='sudo salt-key'
 	alias salt='sudo salt'
+	alias salt-call='sudo salt-call'
 fi
