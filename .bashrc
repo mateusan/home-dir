@@ -205,8 +205,8 @@ controlversion_branch_to_prompt() {
 
 	branch=$(parse_git_branch)
 	if [ "$branch" != "" ]; then
-		remoteURL=$(git config --get remote.origin.url)
-		if [ $remoteURL != 'https://github.com/mateusan/home-dir' ]; then
+		remoteURL=$(git config --get remote.origin.url | grep -c "mateusan\/home\-dir" )
+		if [ $remoteURL -lt 1 ]; then
 			echo -ne " \001\e[0;31;49m\002[git:"
 			echo -ne "\001\e[1;31;49m\002$branch"
 			echo -ne "\001\e[0;31;49m\002]"
