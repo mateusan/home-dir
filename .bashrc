@@ -193,31 +193,30 @@ parse_git_branch() {
 controlversion_branch_to_prompt() {
 	branch=$(parse_svn_branch)
 	if [ "$branch" != "" ]; then
-		echo -ne " \e[0;31;49m[svn:"
+		echo -ne " \001\e[0;31;49m\002[svn:"
 		if [ "$branch" == "trunk" ]; then
-			echo -ne "\e[1;31;49m$branch"
+			echo -ne "\001\e[1;31;49m\002$branch"
 		else
-			echo -ne "\e[39;41m$branch"
+			echo -ne "\001\e[39;41m\002$branch"
 		fi
 		revision=$(svn info --show-item=revision)
-		echo -ne "\e[0;31;49m rev:$revision]"
+		echo -ne "\001\e[0;31;49m\002 rev:$revision]"
 	fi
 
 	branch=$(parse_git_branch)
 	if [ "$branch" != "" ]; then
 		remoteURL=$(git config --get remote.origin.url)
 		if [ $remoteURL != 'https://github.com/mateusan/home-dir' ]; then
-			echo -ne " \e[0;31;49m[git:"
-			echo -ne "\e[1;31;49m$branch"
-			echo -ne "\e[0;31;49m]"
+			echo -ne " \001\e[0;31;49m\002[git:"
+			echo -ne "\001\e[1;31;49m\002$branch"
+			echo -ne "\001\e[0;31;49m\002]"
 		fi
 	fi
 
 }
-
-PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %T}]"
-PS1="$PS1\$(controlversion_branch_to_prompt)${Normal}"
-PS1="$PS1 ${Brown}\$${Normal} "
+# Poner el \001 002 para escapar los caracteres de escape del bash
+# https://stackoverflow.com/questions/19092488/custom-bash-prompt-is-overwriting-itself
+PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %T}]\$(controlversion_branch_to_prompt) ${Brown}\$${Normal} "
 
 
 
