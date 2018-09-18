@@ -191,9 +191,9 @@ parse_svn_branch() {
 		if [[ $relativeURL =~ trunk ]]; then
 			echo 'trunk'
 		elif [[ $relativeURL =~ /branches/ ]]; then
-			echo $url | sed -e 's#^.*/\(branches/.*\)/.*$#\1#'
+			echo $relativeURL | sed -e 's/^.*\/branches\///' -e 's/\/.*$//'
 		elif [[ $relativeURL =~ /tag/s ]]; then
-			echo $url | sed -e 's#^.*/\(tags/.*\)/.*$#\1#'
+			echo $relativeURL | sed -e 's/^.*\/tags\///' -e 's/\/.*$//'
 		fi
 	fi
 }
