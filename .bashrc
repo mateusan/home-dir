@@ -185,12 +185,25 @@ escapeshellarguments() {
 }
 
 parse_svn_branch() {
-	 svn info --show-item=relative-url 2>/dev/null  | grep "^\^/\(branches\|trunk\)" | cut -d/ -f2-3 | sed -e "s/branches\///" -e "s/\/.*$//"
+	issvn=$(svn info --show-item wc-root 2>/dev/null)
+	if  [ "$issvn" != "" ]; then
+		relativeURL=`svn info --show-item=relative-url 2>/dev/null`
+		if [[ $relativeURL =~ trunk ]]; then
+			echo 'trunk'
+		elif [[ $relativeURL =~ /branches/ ]]; then
+			echo $url | sed -e 's#^.*/\(branches/.*\)/.*$#\1#'
+		elif [[ $relativeURL =~ /tag/s ]]; then
+			echo $url | sed -e 's#^.*/\(tags/.*\)/.*$#\1#'
+		fi
+	fi
 }
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 controlversion_branch_to_prompt() {
+	if [ `pwd` == "$HOME" ]; then
+		return;
+	fi
 	branch=$(parse_svn_branch)
 	if [ "$branch" != "" ]; then
 		echo -ne " \001\e[0;31;49m\002[svn:"
