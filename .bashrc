@@ -134,7 +134,7 @@ LC_ALL="es_ES.utf8"
 
 function svndiff
 {
-	svn diff $@ | source-highlight --out-format=esc --src-lang=diff
+	/usr/bin/svn diff $@ | source-highlight --out-format=esc --src-lang=diff
 }
 
 function limpiarficherosconfiguracion
@@ -185,9 +185,9 @@ escapeshellarguments() {
 }
 
 parse_svn_branch() {
-	issvn=$(svn info --show-item wc-root 2>/dev/null)
+	issvn=$(/usr/bin/svn info --show-item wc-root 2>/dev/null)
 	if  [ "$issvn" != "" ]; then
-		relativeURL=`svn info --show-item=relative-url 2>/dev/null`
+		relativeURL=`/usr/bin/svn info --show-item=relative-url 2>/dev/null`
 		if [[ $relativeURL =~ trunk ]]; then
 			echo 'trunk'
 		elif [[ $relativeURL =~ /branches/ ]]; then
@@ -212,10 +212,9 @@ controlversion_branch_to_prompt() {
 		else
 			echo -ne "\001\e[39;41m\002$branch"
 		fi
-		revision=$(svn info --show-item=revision)
+		revision=$(/usr/bin/svn info --show-item=revision)
 		echo -ne "\001\e[0;31;49m\002 rev:$revision]"
 	fi
-
 	branch=$(parse_git_branch)
 	if [ "$branch" != "" ]; then
 		remoteURL=$(git config --get remote.origin.url | grep -c "mateusan\/home\-dir" )
@@ -225,7 +224,6 @@ controlversion_branch_to_prompt() {
 			echo -ne "\001\e[0;31;49m\002]"
 		fi
 	fi
-
 }
 # Poner el \001 002 para escapar los caracteres de escape del bash
 # https://stackoverflow.com/questions/19092488/custom-bash-prompt-is-overwriting-itself
