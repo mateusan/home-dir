@@ -60,8 +60,6 @@ done;
 case $MODE in
 	web)
 		$MYSUDO find $MYDIR -type f \
-			-a -not -path '*.svn/*' \
-			-a -not -path '*.git/*' \
 			-a \( \
 				-name "*.php" \
 				-o -name "*.tpl" \

@@ -245,6 +245,7 @@ alias qm="sudo qm"
 if which sudo &>/dev/null; then
 	alias apt-get='sudo apt-get'
 	alias aptitude='sudo aptitude'
+	alias apt='sudo apt'
 
 	alias update="sudo aptitude update"
 	alias upgrade="sudo aptitude dist-upgrade"
@@ -260,7 +261,7 @@ if which sudo &>/dev/null; then
 
 	alias salt-key='sudo salt-key'
 	alias salt='sudo salt'
-	alias salt-call='sudo salt-call'
+	alias salt-call='sudo salt-call --state-output=changes --state-verbose=true'
 fi
 
 if [ -d ~/bin/svn-wrapper ]; then
