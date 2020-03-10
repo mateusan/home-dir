@@ -54,10 +54,23 @@ do
 		shift;
 		continue;
 	fi
+	if [ "$1" == "--mode-php" ]; then
+		MODE="php"
+		shift;
+		continue;
+	fi
 	break;
 done;
 
 case $MODE in
+	php)
+		$MYSUDO find $MYDIR -type f \
+			-a \( \
+				-name "*.php" \
+				-o -name "*.lib" \
+			\) \
+			-exec grep --text -niIH --color=ALWAYS "$WORD" $@ {} \; 
+	;;
 	web)
 		$MYSUDO find $MYDIR -type f \
 			-a \( \

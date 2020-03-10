@@ -91,8 +91,10 @@ case "$TERM" in
    ;;
 esac
 
-## Historial por nombre de servidor
+# append to history, don't overwrite it
+shopt -s histappend
 
+## Historial por nombre de servidor
 fqdn=$(hostname -f)
 mkdir -p ${HOME}/.history/ && chmod 744 ${HOME}/.history/
 export HISTFILE=${HOME}/.history/${fqdn}
