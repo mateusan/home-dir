@@ -141,8 +141,8 @@ function svndiff
 
 function limpiarficherosconfiguracion
 {
-	sudo aptitude remove `deborphan --guess-all`
-	sudo aptitude autoclean
+	sudo apt remove `deborphan --guess-all`
+	sudo apt autoclean
 	paquetes=$(COLUMNS=200 dpkg -l | grep ^rc | awk '{print $2}')
 	if [ "$paquetes" != "" ]; then
 		sudo dpkg -P $paquetes
@@ -239,6 +239,7 @@ PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %
 
 _completion_loader apt-get &>/dev/null
 _completion_loader aptitude &>/dev/null
+_completion_loader apt &>/dev/null
 
 alias ifconfig="sudo ifconfig"
 alias qm="sudo qm"
@@ -249,14 +250,13 @@ if which sudo &>/dev/null; then
 	alias aptitude='sudo aptitude'
 	alias apt='sudo apt'
 
-	alias update="sudo aptitude update"
-	alias upgrade="sudo aptitude dist-upgrade"
-	alias safe-upgrade="sudo aptitude safe-upgrade"
-	alias install="sudo aptitude install"
-	alias show="sudo aptitude show"
-	alias search="sudo aptitude search"
-	alias remove="sudo aptitude remove"
-	alias purge="sudo aptitude purge"
+	alias update="sudo apt update"
+	alias upgrade="sudo apt dist-upgrade"
+	alias install="sudo apt install"
+	alias show="sudo apt show"
+	alias search="sudo apt search"
+	alias remove="sudo apt remove"
+	alias purge="sudo apt purge"
 
 	# AutoComplete commands
 	complete -F _aptitude install purge show search remove
