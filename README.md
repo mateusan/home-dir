@@ -8,9 +8,6 @@ cd ~
 git init
 git remote add origin https://github.com/mateusan/home-dir
 git pull origin master
-git submodule update
-#git fetch --all
-#git reset --hard origin/master
 ```
 
 or
