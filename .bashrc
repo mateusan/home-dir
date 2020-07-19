@@ -218,7 +218,7 @@ _completion_loader apt &>/dev/null
 alias ifconfig="sudo ifconfig"
 alias qm="sudo qm"
 
-# Aptitude
+# apt 
 if which sudo &>/dev/null; then
 	alias apt='sudo apt'
 
