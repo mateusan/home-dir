@@ -213,8 +213,6 @@ PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %
 ## BASH ALIAS
 ##########################################################################################
 
-_completion_loader apt-get &>/dev/null
-_completion_loader aptitude &>/dev/null
 _completion_loader apt &>/dev/null
 
 alias ifconfig="sudo ifconfig"
@@ -222,8 +220,6 @@ alias qm="sudo qm"
 
 # Aptitude
 if which sudo &>/dev/null; then
-	alias apt-get='sudo apt-get'
-	alias aptitude='sudo aptitude'
 	alias apt='sudo apt'
 
 	alias update="sudo apt update"
@@ -233,9 +229,6 @@ if which sudo &>/dev/null; then
 	alias search="sudo apt search"
 	alias remove="sudo apt remove"
 	alias purge="sudo apt purge"
-
-	# AutoComplete commands
-	complete -F _aptitude install purge show search remove
 
 	alias salt-key='sudo salt-key'
 	alias salt='sudo salt'
