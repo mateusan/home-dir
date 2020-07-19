@@ -84,7 +84,7 @@ set title
 set background=dark
 
 " Ponemos los colores oscuros a la linea de números
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 " Pones background en línea  debajo del cursor
 "set cursorline
 "highlight CursorLine term=NONE cterm=bold ctermfg=NONE ctermbg=cyan gui=NONE guifg=NONE guibg=NONE
@@ -364,6 +364,8 @@ call plug#begin('~/.vim/bundle')
 " PHP vim
 Plug 'stanangeloff/php.vim'
 Plug '2072/PHP-Indenting-for-VIm'
+" Autocompletado PHP
+Plug 'shawncplus/phpcomplete.vim'
 " Status line
 Plug 'itchyny/lightline.vim'
 " Branch de git, ayuda a lightline.vim
@@ -385,3 +387,4 @@ let g:lightline = {
 	\   'gitbranch': 'FugitiveHead'
 	\ },
 	\ }
+
