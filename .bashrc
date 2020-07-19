@@ -186,36 +186,12 @@ escapeshellarguments() {
    done
 }
 
-parse_svn_branch() {
-	issvn=$(/usr/bin/svn info --show-item wc-root 2>/dev/null)
-	if  [ "$issvn" != "" ]; then
-		relativeURL=`/usr/bin/svn info --show-item=relative-url 2>/dev/null`
-		if [[ $relativeURL =~ trunk ]]; then
-			echo 'trunk'
-		elif [[ $relativeURL =~ /branches/ ]]; then
-			echo $relativeURL | sed -e 's/^.*\/branches\///' -e 's/\/.*$//'
-		elif [[ $relativeURL =~ /tag/s ]]; then
-			echo $relativeURL | sed -e 's/^.*\/tags\///' -e 's/\/.*$//'
-		fi
-	fi
-}
 parse_git_branch() {
 	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 controlversion_branch_to_prompt() {
 	if [ `pwd` == "$HOME" ]; then
 		return;
-	fi
-	branch=$(parse_svn_branch)
-	if [ "$branch" != "" ]; then
-		echo -ne " \001\e[0;31;49m\002[svn:"
-		if [ "$branch" == "trunk" ]; then
-			echo -ne "\001\e[1;31;49m\002$branch"
-		else
-			echo -ne "\001\e[39;41m\002$branch"
-		fi
-		revision=$(/usr/bin/svn info --show-item=revision)
-		echo -ne "\001\e[0;31;49m\002 rev:$revision]"
 	fi
 	branch=$(parse_git_branch)
 	if [ "$branch" != "" ]; then
@@ -264,8 +240,4 @@ if which sudo &>/dev/null; then
 	alias salt-key='sudo salt-key'
 	alias salt='sudo salt'
 	alias salt-call='sudo salt-call --state-output=changes --state-verbose=true'
-fi
-
-if [ -d ~/bin/svn-wrapper ]; then
-	alias svn="~/bin/svn-wrapper/svn-wrapper.sh $@"
 fi
