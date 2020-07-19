@@ -1,3 +1,0 @@
-[submodule "bin/svn-wrapper"]
-	path = bin/svn-wrapper
-	url = https://github.com/h4tr3d/svn-wrapper
