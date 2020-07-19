@@ -450,6 +450,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
 " Plantillas de nuevos ficheros
 Plug 'aperezdc/vim-template'
+" NerdTree
+Plug 'scrooloose/nerdtree'
+" colorscheme
+Plug 'sickill/vim-monokai'
+" Comentarios segun tipo de fichero :Commentary
+Plug 'tpope/vim-commentary'
 call plug#end()
 
 " Mostrar barra de status / itchyny/lightline.vim
@@ -471,3 +477,4 @@ let g:lightline = {
 let g:templates_directory=[ '~/.vim/templates/' ]
 runtime! myid.vim
 " g:email, g:author
+colorscheme monokai
