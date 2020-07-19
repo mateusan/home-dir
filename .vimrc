@@ -371,6 +371,7 @@ Plug 'itchyny/lightline.vim'
 " Branch de git, ayuda a lightline.vim
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
+Plug 'aperezdc/vim-template'
 call plug#end()
 
 " Mostrar barra de status / itchyny/lightline.vim
@@ -388,3 +389,7 @@ let g:lightline = {
 	\ },
 	\ }
 
+" plantillas
+let g:templates_directory=[ '~/.vim/templates/' ]
+runtime! myid.vim
+" g:email, g:author
