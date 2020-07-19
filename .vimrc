@@ -12,16 +12,6 @@
 nmap <silent> >> :let &tabstop += 1<CR>
 nmap <silent> << :let &tabstop -= &tabstop > 1 ? 1 : 0<CR>
 
-
-" Obtiene la fecha
-function! CurTime() 
-	let ftime = strftime("%c")
-	let ftime = strftime("%A, %d de %B de %Y %H:%M:%S")
-	let ftime = substitute(ftime,'\(\<\w\+\>\)', '\u\1', 'g') 
-	let ftime = substitute(ftime,'\ De',' de','g')
-	return ftime
-endfunction
-
 " Cambia a modo ejecutable los archivos que empiezan por #!
 function ModeChange()
 	if getline(1) =~ "^#!"
@@ -86,10 +76,9 @@ set showmatch
 " Muestra el titulo del archivo
 set title
 " Mostrar barra de status
-set ls=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
-set statusline+=%= "indent to right
-set statusline+=%{CurTime()} 
+"set laststatus=2
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+"set statusline+=%= "indent to right
 
 " Background es oscuro
 set background=dark
@@ -147,19 +136,19 @@ set cindent
 " En caso de comandos tipo :make, :next, habilitamos el autoguardado
 " set autowrite
 " Habilitamos la autdetección del tipo de lenguaje
-if has("autocmd")
-	if !exists("autocommands_loaded")
-     	let autocommands_loaded = 1
-		filetype plugin on
-		" Cuando se edite un archivo saltar a la posición donde quedamos la última vez
-		:autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
-	endif
-endif
+"if has("autocmd")
+"	if !exists("autocommands_loaded")
+"     	let autocommands_loaded = 1
+"		filetype plugin on
+"		" Cuando se edite un archivo saltar a la posición donde quedamos la última vez
+"		:autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+"	endif
+"endif
 " Some Debian-specific things
-augroup filetype
-  au BufRead reportbug.*		set ft=mail
-  au BufRead reportbug-*		set ft=mail
-augroup END
+"augroup filetype
+"  au BufRead reportbug.*		set ft=mail
+"  au BufRead reportbug-*		set ft=mail
+"augroup END
 
 set viminfo="NONE"
 
@@ -263,11 +252,11 @@ let @h='0wi//w"1yww"2yww"3y$o/**@brief Setter "3po@param "1pi o*/publ
 " TIPOS DE ARCHIVOS
 "===================================
 
-autocmd BufNewFile,BufRead *.tpl call Tpl()
-autocmd BufNewFile,BufRead *.php call Php()
-autocmd BufNewFile,BufRead *.sh call Sh()
-autocmd BufNewFile,BufRead *.js call JS()
-autocmd FileType svn setlocal textwidth=78
+"autocmd BufNewFile,BufRead *.tpl call Tpl()
+"autocmd BufNewFile,BufRead *.php call Php()
+"autocmd BufNewFile,BufRead *.sh call Sh()
+"autocmd BufNewFile,BufRead *.js call JS()
+"autocmd FileType svn setlocal textwidth=78
 autocmd BufWritePost * call ModeChange()
 
 function SintaxCorrect()
@@ -361,3 +350,38 @@ function! ToggleHex()
     execute ":%!xxd -r"
   endif
 endfunction
+
+"===================================
+" PLUGINS
+"===================================
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin('~/.vim/bundle')
+" Ayuda de plug
+"Plug 'junegunn/vim-plug'
+" PHP vim
+Plug 'stanangeloff/php.vim'
+Plug '2072/PHP-Indenting-for-VIm'
+" Status line
+Plug 'itchyny/lightline.vim'
+" Branch de git, ayuda a lightline.vim
+Plug 'tpope/vim-fugitive'
+Plug 'itchyny/vim-gitbranch'
+call plug#end()
+
+" Mostrar barra de status / itchyny/lightline.vim
+set laststatus=2
+if !has('gui_running')
+  set t_Co=256
+endif
+let g:lightline = {
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+	\ },
+	\ 'component_function': {
+	\   'gitbranch': 'FugitiveHead'
+	\ },
+	\ }
