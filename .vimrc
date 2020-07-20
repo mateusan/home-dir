@@ -354,7 +354,7 @@ ab _doxyfile <ESC>ddO/**<CR>*/<ESC>O@file <C-R>=expand("%:t")<CR><CR>@author <C-
 ab _htmlscript <script language="JavaScript" type="text/javascript"><CR><!--//--><![CDATA[//><!--<CR>//--><!]]><CR></script><CR>
 
 " Añadir cabecera doxyfile a archivos
-autocmd BufNewFile *.php normal i_doxyfile 
+"autocmd BufNewFile *.php normal i_doxyfile 
 
 
 " Entidades html
@@ -452,8 +452,6 @@ Plug 'itchyny/vim-gitbranch'
 Plug 'aperezdc/vim-template'
 " NerdTree
 Plug 'scrooloose/nerdtree'
-" colorscheme
-Plug 'sickill/vim-monokai'
 " Comentarios segun tipo de fichero :Commentary
 Plug 'tpope/vim-commentary'
 call plug#end()
@@ -477,4 +475,3 @@ let g:lightline = {
 let g:templates_directory=[ '~/.vim/templates/' ]
 runtime! myid.vim
 " g:email, g:author
-colorscheme monokai
