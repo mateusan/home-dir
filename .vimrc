@@ -461,10 +461,6 @@ let g:lightline = {
 	\		'readonly': 'LightlineReadonly',
 	\	},
 	\ }
-let g:lightline#colorscheme#molokai#palette#tabline#right =  [ [
-			\	[ '#d0d0d0', 252 ],
-			\	[ '#242424', 235 ],
-			\ ] ]
 
 " plantillas
 let g:templates_directory=[ '~/.vim/templates/' ]
