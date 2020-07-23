@@ -461,12 +461,19 @@ set laststatus=2
 if !has('gui_running')
   set t_Co=256
 endif
+
+function! LightlineFilename()
+	let name = expand('%:t') !=# '' ? expand('%:p') : '[No Name]'
+	return name
+endfunction
+
 let g:lightline = {
 	\ 'active': {
 	\   'left': [ [ 'mode', 'paste' ],
 	\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 	\ },
 	\ 'component_function': {
+	\ 	 'filename': 'LightlineFilename',
 	\   'gitbranch': 'FugitiveHead'
 	\ },
 	\ }
