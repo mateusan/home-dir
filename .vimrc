@@ -175,8 +175,12 @@ map ,w <C-W>T
 map <C-t> :tabnew<CR>
 map <C-left> :tabprevious<CR>
 map <C-right> :tabnext<CR>
-map <C-up> :tabnew<CR>
-map <C-down> :tabclose<CR>
+"map <C-up> :tabnew<CR>
+"map <C-down> :tabclose<CR>
+noremap <C-up> <C-w>k
+inoremap <C-up> <C-w>k 
+noremap <C-down> <C-w>j 
+inoremap <C-down> <C-w>j 
 
 "===================================
 " MACROS 
@@ -208,10 +212,8 @@ let @h='0wi//w"1yww"2yww"3y$o/**@brief Setter "3po@param "1pi o*/publ
 " TIPOS DE ARCHIVOS
 "===================================
 
-"autocmd BufNewFile,BufRead *.tpl call Tpl()
-"autocmd BufNewFile,BufRead *.php call Php()
-"autocmd BufNewFile,BufRead *.sh call Sh()
-"autocmd FileType svn setlocal textwidth=78
+autocmd BufNewFile,BufRead *.tpl call Tpl()
+autocmd BufNewFile,BufRead *.php call Php()
 autocmd BufWritePost * call ModeChange()
 
 function SintaxCorrect()
@@ -252,27 +254,10 @@ function PhpFunctions()
 	set dictionary-=~/.vim/syntax/php.vim dictionary+=~/.vim/syntax/php.vim
 	set dictionary-=~/.vim/php/funclist.txt dictionary+=~/.vim/php/funclist.txt
 	set complete-=k complete+=k
-	" Chequear Sintaxis PHP
-	set makeprg=php\ -l\ %
-	set errorformat=%m\ in\ %f\ on\ line\ %l
-	map <F9> :make<CR>
-	imap <F9> <ESC><F9>
 	
 	" Getters y Setters para código
 	map ,s ByWi<CR><ESC>k<F6>Metodo para poner <CR>@param <ESC>pjj0wipublic fucntion set<ESC>lgU<space>A($<ESC>pA)<CR>{<CR>$this-><ESC>pA = $<ESC>pA;<CR>}<ESC>?brief<CR>:nohlsearch<CR>A
 	map ,g ByWi<CR><ESC>k<F6>Método para obtener <CR>@return <ESC>pBgU<space>jj0wipublic fucntion get<ESC>lgU<space>A()<CR>{<CR>return $this-><ESC>pA;<CR>}<ESC>?brief<CR>:nohlsearch<CR>A
-endfunction
-
-function Sh()
-	map <F3> <ESC>o<ESC>60i#<ESC>o<ESC>60i#<ESC>O# 
-	imap <F3> <ESC><F3>
-	set filetype=sh
-	"au BufWritePost *.sh :silent !chmod a+x <afile>
-	" Chequear Sintaxis SHELL
-	set makeprg=/bin/bash\ -x\ %
-	set errorformat=%f:\ line\ %l:\ %m
-	map <F9> :make<CR>
-	imap <F9> <ESC><F9>
 endfunction
 
 function Php()
@@ -405,6 +390,8 @@ Plug 'Lokaltog/powerline-fonts'
 " Branch de git, ayuda a lightline.vim
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
+" Comprobación de sintaxis
+Plug 'vim-syntastic/syntastic'
 " Plantillas de nuevos ficheros
 Plug 'aperezdc/vim-template'
 " NerdTree
@@ -413,12 +400,24 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 call plug#end()
 
+" Sintastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_auto_jump = 1
+map <F9> :SyntasticCheck<CR>
+imap <F9> :SyntasticCheck<CR>
+
+
 " Mostrar barra de status / itchyny/lightline.vim
 set laststatus=2
 if !has('gui_running')
   set t_Co=256
 endif
 
+" Mostrar siempre el tablien
+set showtabline=2
 
 function! LightlineFilename()
 	let name = expand('%:t') !=# '' ? expand('%:p') : '[No Name]'
@@ -449,11 +448,17 @@ let g:lightline = {
 	\	},
 	\	'tabline': {
 	\ 		'left': [[ 'tabs' ]],
-	\ 		'right': [[ 'mytabs' ]],
+	\ 		'right': [[ 'mytabs', 'syntastic'  ]],
 	\	},
 	\	'component': {
 	\		'lineinfo': ' %3l:%-2v',
 	\ 		'charvaluehex': '0x%02B',
+	\	},
+	\	'component_type': {
+	\		'syntastic': 'error',
+	\	},
+	\	'component_expand': {
+	\		'syntastic': 'SyntasticStatuslineFlag',
 	\	},
 	\	'component_function': {
 	\		'gitbranch': 'LightlineFugitive',
@@ -461,6 +466,12 @@ let g:lightline = {
 	\		'readonly': 'LightlineReadonly',
 	\	},
 	\ }
+
+" Syntastic can call a post-check hook, let's update lightline there
+" For more information: :help syntastic-loclist-callback
+function! SyntasticCheckHook(errors)
+	call lightline#update()
+endfunction
 
 " plantillas
 let g:templates_directory=[ '~/.vim/templates/' ]
