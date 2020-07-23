@@ -42,7 +42,7 @@ language time es_ES.utf8
 
 " Activar el modo de no compatibilidad con Vi
 set nocompatible
-" Terminal r·pido
+" Terminal r√°pido
 set ttyfast
 " Evita los beeps en caso de error
 set noerrorbells
@@ -50,24 +50,24 @@ set noerrorbells
 set novisualbell
 " Idioma para la ayuda y los mensaje
 set helplang=es
-" TamaÒo del historial de comandos
+" Tama√±o del historial de comandos
 set history=50
 " Activa el uso del raton 
 "set mouse=a
-" Formato de copiado de portapales de X11 (botÛn central);
+" Formato de copiado de portapales de X11 (bot√≥n central);
 set clipboard=autoselect
 
 "===================================
 " VISUALIZACION
 "===================================
 
-" Activa el mostrar el n˙mero de linea/columna en el inferior
+" Activa el mostrar el n√∫mero de linea/columna en el inferior
 set ruler
-" Activa el mostrar los n˙meros de linea
+" Activa el mostrar los n√∫meros de linea
 set number
-" Activa la indicaciÛn del modo
+" Activa la indicaci√≥n del modo
 set showmode
-" Activa la indicaciÛn de comadnos
+" Activa la indicaci√≥n de comadnos
 set showcmd
 " Activa el coloreado de sintaxis
 syntax enable
@@ -83,9 +83,9 @@ set title
 " Background es oscuro
 set background=dark
 
-" Ponemos los colores oscuros a la linea de n˙meros
+" Ponemos los colores oscuros a la linea de n√∫meros
 "highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-" Pones background en lÌnea  debajo del cursor
+" Pones background en l√≠nea  debajo del cursor
 "set cursorline
 "highlight CursorLine term=NONE cterm=bold ctermfg=NONE ctermbg=cyan gui=NONE guifg=NONE guibg=NONE
 
@@ -94,13 +94,13 @@ set background=dark
 " TABULACIONES
 "===================================
 
-" TamaÒo de la tabulaciÛn (ts), 3 caracteres
+" Tama√±o de la tabulaci√≥n (ts), 3 caracteres
 set tabstop=3
-" TamaÒo para los sangrados, igual que ts (tw)
+" Tama√±o para los sangrados, igual que ts (tw)
 set shiftwidth=3
-" TamaÒo del ancho de linea
+" Tama√±o del ancho de linea
 set textwidth=0
-" No cambiar de lina autom√°ticamente
+" No cambiar de lina autom√É¬°ticamente
 " set nowrap
 " El tabulador inserta verdaderas tabulaciones, no espacios
 set noexpandtab
@@ -109,7 +109,7 @@ set noexpandtab
 " BUSQUEDAS
 "===================================
 
-" Haces b˙squedas sin importar mayuscula/min, a no ser que especifiquen may˙sculas
+" Haces b√∫squedas sin importar mayuscula/min, a no ser que especifiquen may√∫sculas
 set ignorecase smartcase
 " Busqueda incremental
 set incsearch
@@ -121,9 +121,9 @@ set hlsearch
 " IDENTACION 
 "===================================
 
-" AutoindentaciÛn (ai)
+" Autoindentaci√≥n (ai)
 set autoindent
-" IdentaciÛn tipo c (mejor usar smartident)
+" Identaci√≥n tipo c (mejor usar smartident)
 set cindent
 " SmartIndent
 "set smartindent
@@ -135,12 +135,12 @@ set cindent
 
 " En caso de comandos tipo :make, :next, habilitamos el autoguardado
 " set autowrite
-" Habilitamos la autdetecciÛn del tipo de lenguaje
+" Habilitamos la autdetecci√≥n del tipo de lenguaje
 "if has("autocmd")
 "	if !exists("autocommands_loaded")
 "     	let autocommands_loaded = 1
 "		filetype plugin on
-"		" Cuando se edite un archivo saltar a la posiciÛn donde quedamos la ˙ltima vez
+"		" Cuando se edite un archivo saltar a la posici√≥n donde quedamos la √∫ltima vez
 "		:autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
 "	endif
 "endif
@@ -163,58 +163,14 @@ set nobackup
 "set backupdir=~/.tmp
 
 "===================================
-" PESTA—AS
+" PESTA√ëAS
 "===================================
-
-set tabline=%!MyTabLine()
-function MyTabLine()
-	let s = ''
-	let max = tabpagenr('$')
-	for i in range(tabpagenr('$'))
-		" select the highlighting
-		if i + 1 == tabpagenr()
-			let s .= '%#TabLineFill#'
-		else
-			let s .= '%#TabLineSel#'
-		endif
-		" set the tab page number (for mouse clicks)
-		let s .= '%' . (i + 1) . 'T'		
-		let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
-	endfor
-	let s .= '%#TabLine#%T'
-	if tabpagenr('$') > 1
-		" alienado derecha %=
-		let s .= '%=%#TabLineSel# N¬∫Tabs:' . max
-	endif
-	return s
-endfunction
-function MyTabLabel(n)
-	let max = tabpagenr('$')
-	let buflist = tabpagebuflist(a:n)
-	let winnr = tabpagewinnr(a:n)
-	let s = bufname(buflist[winnr - 1])
-	let label = ''
-	" Afegim [+] al archius modificats
-	for bufnr in buflist
-		if getbufvar(bufnr,"&modified")
-			let label .= '+'
-			break
-		endif
-	endfor
-	if label != ''
-		let s .= label
-	else
-		let s .= ' '
-	endif
-	let s .= '[' . a:n . '/' . max . ']'
-	return s
-endfunction
 
 map ,1 :tabprevious
 map ,2 :tabnext
 map ,t :tabnew
 map ,e :tabedit
-" mover a nueva pestaÒa
+" mover a nueva pesta√±a
 map ,w <C-W>T 
 map <C-t> :tabnew<CR>
 map <C-left> :tabprevious<CR>
@@ -226,7 +182,7 @@ map <C-down> :tabclose<CR>
 " MACROS 
 "===================================
 
-" TabulaciÛn inteligente
+" Tabulaci√≥n inteligente
 " Si no se escribe una palabra, se escribe un TAB, sino se autocompleta
 function InsertTabWrapper()
 	let col = col('.') - 1
@@ -246,7 +202,7 @@ set pastetoggle=<F2>
 
 " Para poner un caracter de Return CTRL+V + RETURN, o CTRL+V + ESC
 let @g='?[<>"]:nohla<?=_("/[<>"]:nohli");?>'
-let @h='0wi//w"1yww"2yww"3y$o/**@brief Setter "3po@param "1pi o*/public function set"2pi( $"2"1pi ){$this->"Äkb"1pi = $"1pi;}/**@brief GtÄkbetter dÄkb"3po@return o*/public function get"2pi(){return $this->"1pi;}'
+let @h='0wi//w"1yww"2yww"3y$o/**@brief Setter "3po@param "1pi o*/public function set"2pi( $"2"1pi ){$this->"¬Äkb"1pi = $"1pi;}/**@brief Gt¬Äkbetter d¬Äkb"3po@return o*/public function get"2pi(){return $this->"1pi;}'
 
 "===================================
 " TIPOS DE ARCHIVOS
@@ -302,9 +258,9 @@ function PhpFunctions()
 	map <F9> :make<CR>
 	imap <F9> <ESC><F9>
 	
-	" Getters y Setters para cÛdigo
+	" Getters y Setters para c√≥digo
 	map ,s ByWi<CR><ESC>k<F6>Metodo para poner <CR>@param <ESC>pjj0wipublic fucntion set<ESC>lgU<space>A($<ESC>pA)<CR>{<CR>$this-><ESC>pA = $<ESC>pA;<CR>}<ESC>?brief<CR>:nohlsearch<CR>A
-	map ,g ByWi<CR><ESC>k<F6>MÈtodo para obtener <CR>@return <ESC>pBgU<space>jj0wipublic fucntion get<ESC>lgU<space>A()<CR>{<CR>return $this-><ESC>pA;<CR>}<ESC>?brief<CR>:nohlsearch<CR>A
+	map ,g ByWi<CR><ESC>k<F6>M√©todo para obtener <CR>@return <ESC>pBgU<space>jj0wipublic fucntion get<ESC>lgU<space>A()<CR>{<CR>return $this-><ESC>pA;<CR>}<ESC>?brief<CR>:nohlsearch<CR>A
 endfunction
 
 function Sh()
@@ -353,67 +309,67 @@ ab _linea2 <ESC>72i=<ESC>i
 ab _doxyfile <ESC>ddO/**<CR>*/<ESC>O@file <C-R>=expand("%:t")<CR><CR>@author <C-R>=author<CR> <mailto:<C-R>=email<CR>><CR>@brief <ESC>i 
 ab _htmlscript <script language="JavaScript" type="text/javascript"><CR><!--//--><![CDATA[//><!--<CR>//--><!]]><CR></script><CR>
 
-" AÒadir cabecera doxyfile a archivos
+" A√±adir cabecera doxyfile a archivos
 "autocmd BufNewFile *.php normal i_doxyfile 
 
 
 " Entidades html
 function Html_entities_replace()
-	s/¡/\&Aacute;/geI
-	s/…/\&Eacute;/geI
-	s/Õ/\&Iacute;/geI
-	s/”/\&Oacute;/geI
-	s/⁄/\&Uacute;/geI
-	s/·/\&aacute;/geI
-	s/È/\&eacute;/geI
-	s/Ì/\&iacute;/geI
-	s/Û/\&oacute;/geI
-	s/˙/\&uacute;/geI
-	s/¿/\&Agrave;/geI
-	s/»/\&Egrave;/geI
-	s/Ã/\&Igrave;/geI
-	s/“/\&Ograve;/geI
-	s/Ÿ/\&Ugrave;/geI
-	s/‡/\&agrave;/geI
-	s/Ë/\&egrave;/geI
-	s/Ï/\&igrave;/geI
-	s/Ú/\&ograve;/geI
-	s/˘/\&ugrave;/geI
-	s/—/\&Ntilde;/geI
-	s/Ò/\&ntilde;/geI
-	s/‹/\&Uuml;/geI
-	s/¸/\&uuml;/geI
-	s/œ/\&Iuml;/geI
-	s/Ô/\&iuml;/geI
+	s/√Å/\&Aacute;/geI
+	s/√â/\&Eacute;/geI
+	s/√ç/\&Iacute;/geI
+	s/√ì/\&Oacute;/geI
+	s/√ö/\&Uacute;/geI
+	s/√°/\&aacute;/geI
+	s/√©/\&eacute;/geI
+	s/√≠/\&iacute;/geI
+	s/√≥/\&oacute;/geI
+	s/√∫/\&uacute;/geI
+	s/√Ä/\&Agrave;/geI
+	s/√à/\&Egrave;/geI
+	s/√å/\&Igrave;/geI
+	s/√í/\&Ograve;/geI
+	s/√ô/\&Ugrave;/geI
+	s/√†/\&agrave;/geI
+	s/√®/\&egrave;/geI
+	s/√¨/\&igrave;/geI
+	s/√≤/\&ograve;/geI
+	s/√π/\&ugrave;/geI
+	s/√ë/\&Ntilde;/geI
+	s/√±/\&ntilde;/geI
+	s/√ú/\&Uuml;/geI
+	s/√º/\&uuml;/geI
+	s/√è/\&Iuml;/geI
+	s/√Ø/\&iuml;/geI
 	:startinsert!
 endfunction
 function Html_entities_disreplace()
-	s/&Aacute;/¡/geI
-	s/&Eacute;/…/geI
-	s/&Iacute;/Õ/geI
-	s/&Oacute;/”/geI
-	s/&Uacute;/⁄/geI
-	s/&aacute;/·/geI
-	s/&eacute;/È/geI
-	s/&iacute;/Ì/geI
-	s/&oacute;/Û/geI
-	s/&uacute;/˙/geI
-	s/&Agrave;/¿/geI
-	s/&Egrave;/»/geI
-	s/&Igrave;/Ã/geI
-	s/&Ograve;/“/geI
-	s/&Ugrave;/Ÿ/geI
-	s/&agrave;/‡/geI
-	s/&egrave;/Ë/geI
-	s/&igrave;/Ï/geI
-	s/&ograve;/Ú/geI
-	s/&ugrave;/˘/geI
-	s/&Ntilde;/—/geI
-	s/&ntilde;/Ò/geI
-	s/&Uuml;/‹/geI
-	s/&uuml;/¸/geI
-	s/&Iuml;/œ/geI
-	s/&iuml;/Ô/geI
+	s/&Aacute;/√Å/geI
+	s/&Eacute;/√â/geI
+	s/&Iacute;/√ç/geI
+	s/&Oacute;/√ì/geI
+	s/&Uacute;/√ö/geI
+	s/&aacute;/√°/geI
+	s/&eacute;/√©/geI
+	s/&iacute;/√≠/geI
+	s/&oacute;/√≥/geI
+	s/&uacute;/√∫/geI
+	s/&Agrave;/√Ä/geI
+	s/&Egrave;/√à/geI
+	s/&Igrave;/√å/geI
+	s/&Ograve;/√í/geI
+	s/&Ugrave;/√ô/geI
+	s/&agrave;/√†/geI
+	s/&egrave;/√®/geI
+	s/&igrave;/√¨/geI
+	s/&ograve;/√≤/geI
+	s/&ugrave;/√π/geI
+	s/&Ntilde;/√ë/geI
+	s/&ntilde;/√±/geI
+	s/&Uuml;/√ú/geI
+	s/&uuml;/√º/geI
+	s/&Iuml;/√è/geI
+	s/&iuml;/√Ø/geI
 	:startinsert!
 endfunction
 map ,h :call Html_entities_replace()<CR>
@@ -445,6 +401,7 @@ Plug '2072/PHP-Indenting-for-VIm'
 Plug 'shawncplus/phpcomplete.vim'
 " Status line
 Plug 'itchyny/lightline.vim'
+Plug 'Lokaltog/powerline-fonts'
 " Branch de git, ayuda a lightline.vim
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
@@ -462,21 +419,52 @@ if !has('gui_running')
   set t_Co=256
 endif
 
+
 function! LightlineFilename()
 	let name = expand('%:t') !=# '' ? expand('%:p') : '[No Name]'
 	return name
 endfunction
+function! LightlineReadonly()
+	return &readonly ? 'RO ÓÇ¢' : ''
+endfunction
+function! LightlineFugitive()
+	if exists('*FugitiveHead')
+		let branch = FugitiveHead()
+		return branch !=# '' ? 'ÓÇ† '.branch : ''
+	endif
+	return ''
+endfunction
+function! MyTabsFunction()
+	return '[Tabs '.tabpagenr().'/'.tabpagenr('$').']'
+endfunction
 
+" ayuda: :h g:lightline, filename/relativepath/absolute
 let g:lightline = {
-	\ 'active': {
-	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-	\ },
-	\ 'component_function': {
-	\ 	 'filename': 'LightlineFilename',
-	\   'gitbranch': 'FugitiveHead'
-	\ },
+	\ 	'colorscheme': 'molokai',
+	\	'separator': { 'left': "ÓÇ∞", 'right': "|" },
+	\	'subseparator': { 'left': "ÓÇ±", 'right': "|" },
+	\	'active': {
+	\		'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'absolutepath', 'modified' ] ],
+	\		'right': [ [ 'lineinfo' ],	[ 'percent' ],	[ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex'  ] ],
+	\	},
+	\	'tabline': {
+	\ 		'left': [[ 'tabs' ]],
+	\ 		'right': [[ 'mytabs' ]],
+	\	},
+	\	'component': {
+	\		'lineinfo': 'ÓÇ° %3l:%-2v',
+	\ 		'charvaluehex': '0x%02B',
+	\	},
+	\	'component_function': {
+	\		'gitbranch': 'LightlineFugitive',
+	\ 		'mytabs': 'MyTabsFunction',
+	\		'readonly': 'LightlineReadonly',
+	\	},
 	\ }
+let g:lightline#colorscheme#molokai#palette#tabline#right =  [ [
+			\	[ '#d0d0d0', 252 ],
+			\	[ '#242424', 235 ],
+			\ ] ]
 
 " plantillas
 let g:templates_directory=[ '~/.vim/templates/' ]
