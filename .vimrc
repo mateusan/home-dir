@@ -416,6 +416,8 @@ Plug 'aperezdc/vim-template'
 Plug 'scrooloose/nerdtree'
 " Comentarios segun tipo de fichero :Commentary
 Plug 'tpope/vim-commentary'
+" SLS files
+Plug 'saltstack/salt-vim'
 call plug#end()
 
 " Sintastic
