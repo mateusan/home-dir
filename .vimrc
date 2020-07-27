@@ -502,6 +502,9 @@ let php_sql_query=1
 let php_htmlInStrings=1
 inoremap <nul> <C-x><C-o>
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+
 
 " plantillas
 let g:templates_directory=[ '~/.vim/templates/' ]
