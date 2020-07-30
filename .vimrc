@@ -56,6 +56,8 @@ set history=50
 "set mouse=a
 " Formato de copiado de portapales de X11 (botón central);
 set clipboard=autoselect
+" Número de tabs máximo
+set tabpagemax=100
 
 "===================================
 " VISUALIZACION
