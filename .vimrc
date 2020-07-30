@@ -189,37 +189,28 @@ inoremap <C-down> <C-w>j
 "===================================
 
 " Tabulación inteligente
-function! Smart_TabComplete()
-  let line = getline('.')                         " current line
-
-  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
-                                                  " line to one character right
-                                                  " of the cursor
-  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-  if (strlen(substr)==0)                          " nothing to match on empty string
+" https://searchcode.com/codesearch/raw/83004085/
+if exists('g:loaded_tab_wrapper') || &cp
+  finish
+endif
+let g:loaded_tab_wrapper = 1
+inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
+inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
+" InsertTabWrapper() {{{
+" Tab completion of tags/keywords if not at the beginning of the line.
+function! InsertTabWrapper(forward)
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
     return "\<tab>"
-  endif
-  let has_period = match(substr, '\.') != -1      " position of period, if any
-  let has_slash = match(substr, '\/') != -1       " position of slash, if any
-  if (!has_period && !has_slash)
-    return "\<C-X>\<C-P>"                         " existing text matching
-  elseif ( has_slash )
-    return "\<C-X>\<C-F>"                         " file matching
+  elseif a:forward
+    return "\<c-p>"
   else
-    return "\<C-X>\<C-O>"                         " plugin matching
+    return "\<c-n>"
   endif
 endfunction
-" Si no se escribe una palabra, se escribe un TAB, sino se autocompleta
-function! InsertTabWrapper()
-	let col = col('.') - 1
-	if !col || getline('.')[col - 1] !~ '\k'
-		return "\<tab>"
-	else
-		return "\<c-x><c-o>"
-	endif
-endfunction
-"inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <tab> <c-r>=Smart_TabComplete()<cr>
+" InsertTabWrapper() }}}
+
+
 
 " Cambia de modo de paste
 set pastetoggle=<F2>
