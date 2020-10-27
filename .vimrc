@@ -407,7 +407,9 @@ Plug 'vim-syntastic/syntastic'
 " Plantillas de nuevos ficheros
 Plug 'aperezdc/vim-template'
 " NerdTree
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " Comentarios segun tipo de fichero :Commentary
 Plug 'tpope/vim-commentary'
 " SLS files
