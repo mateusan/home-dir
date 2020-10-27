@@ -198,7 +198,7 @@ controlversion_branch_to_prompt() {
 		remoteURL=$(git config --get remote.origin.url | grep -c "mateusan\/home\-dir" )
 		if [ $remoteURL -lt 1 ]; then
 			echo -ne " \001\e[0;31;49m\002[git:"
-			echo -ne "\001\e[1;31;49m\002$branch"
+			echo -ne "\001\e[1;31;49m\002 ${branch}"
 			echo -ne "\001\e[0;31;49m\002]"
 		fi
 	fi
@@ -217,6 +217,8 @@ _completion_loader apt &>/dev/null
 
 alias ifconfig="sudo ifconfig"
 alias qm="sudo qm"
+alias stop-all="sudo killall -9 apache2;  sudo systemctl  stop  apache2.service php7.0-fpm.service php7.1-fpm.service php7.2-fpm.service php7.3-fpm.service php7.4-fpm.service"
+alias start-all="sudo systemctl  start  apache2.service php7.0-fpm.service php7.1-fpm.service php7.2-fpm.service php7.3-fpm.service php7.4-fpm.service"
 
 # apt 
 if which sudo &>/dev/null; then
