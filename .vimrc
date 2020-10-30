@@ -46,6 +46,10 @@ set clipboard=autoselect
 " Número de tabs máximo
 set tabpagemax=100
 
+" el terminal nuevo siempre a la derecha y abajo
+set splitright
+set splitbelow
+
 "===================================
 " VISUALIZACION
 "===================================
@@ -138,13 +142,16 @@ Plug 'shawncplus/phpcomplete.vim'
 
 " Autocompletado mientras se escribe
 Plug 'davidhalter/jedi-vim'
-Plug 'ervandew/supertab'
- 
+"Plug 'ervandew/supertab'
+
 " Status line
 Plug 'itchyny/lightline.vim'
 " Branch de git, ayuda a lightline.vim
 Plug 'tpope/vim-fugitive'
 Plug 'itchyny/vim-gitbranch'
+
+" Plugin que muestra los cambios en un repo git
+Plug 'mhinz/vim-signify'
 
 " Pinta las "rayas" de las tabulaciones
 " https://github.com/Yggdroot/indentLine
@@ -171,7 +178,7 @@ Plug 'tpope/vim-commentary'
 Plug 'saltstack/salt-vim'
 
 call plug#end()
-let g:deoplete#enable_at_startup = 1
+
 "===================================
 " PLUGINS CONFIG
 "===================================
@@ -253,10 +260,7 @@ endfunction
 "filetype plugin on
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
-" Syntax highlighting de SQL y HTML en cadenas PHP
-let php_sql_query=1
-let php_htmlInStrings=1
-inoremap <nul> <C-x><C-o>
+" inoremap <nul> <C-x><C-o>
 
 "===================================
 " MACROS 
@@ -349,6 +353,7 @@ inoremap 	<C-S-left> 			<C-w>h
 noremap 		<C-S-right> 		<C-w>l
 inoremap 	<C-S-right> 		<C-w>l 
 
+
 "===================================
 " ABREVIATURAS
 "===================================
@@ -362,6 +367,8 @@ noremap 		<C-S-i> 				<C-w>+
 noremap 		<C-S-k> 				<C-w>-
 noremap 		<C-S-j>				<C-w><
 noremap 		<C-S-l>				<C-w>>
+noremap 		<leader>term      :vert :term<CR>
+
 
 " Macros de código
 let @g='?[<>"]:nohla<?=_("/[<>"]:nohli");?>'
