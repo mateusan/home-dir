@@ -136,6 +136,7 @@ Plug '2072/PHP-Indenting-for-VIm'
 " Autocompletado PHP
 Plug 'shawncplus/phpcomplete.vim'
 
+" Autocompletado mientras se escribe
 Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
  
@@ -330,23 +331,23 @@ endfunction
 "===================================
 
 " abrir nuevo tab
-noremap 		<leader>t 	:tabnew
-map 			<C-t> :tabnew<CR>
+noremap 		<leader>t     	 	:tabnew
+"map 			<C-t>         		 :tabnew<CR>
 " mover la sub-ventana a una pestaña nueva
-noremap 		<leader>w 	<C-W>T
+noremap 		<leader>w 			<C-W>T
 " movimiento de pestañas
-map 			<C-left> 	:tabprevious<CR>
-map 			<C-right> 	:tabnext<CR>
+map 			<C-left> 			:tabprevious<CR>
+map 			<C-right> 			:tabnext<CR>
 "map <C-up> :tabnew<CR>
 "map <C-down> :tabclose<CR>
-noremap 		<C-S-up> 		<C-w>k
-inoremap 	<C-S-up> 		<C-w>k 
-noremap 		<C-S-down> 		<C-w>j 
-inoremap 	<C-S-down> 		<C-w>j 
-noremap 		<C-S-left> 		<C-w>h 
-inoremap 	<C-S-left> 		<C-w>h 
-noremap 		<C-S-right> 	<C-w>l
-inoremap 	<C-S-right> 	<C-w>l 
+noremap 		<C-S-up> 			<C-w>k
+inoremap 	<C-S-up> 			<C-w>k 
+noremap 		<C-S-down> 			<C-w>j 
+inoremap 	<C-S-down> 			<C-w>j 
+noremap 		<C-S-left> 			<C-w>h 
+inoremap 	<C-S-left> 			<C-w>h 
+noremap 		<C-S-right> 		<C-w>l
+inoremap 	<C-S-right> 		<C-w>l 
 
 "===================================
 " ABREVIATURAS
