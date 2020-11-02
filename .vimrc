@@ -142,7 +142,7 @@ Plug 'shawncplus/phpcomplete.vim'
 
 " Autocompletado mientras se escribe
 Plug 'davidhalter/jedi-vim'
-"Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'
 
 " Status line
 Plug 'itchyny/lightline.vim'
@@ -260,33 +260,33 @@ endfunction
 "filetype plugin on
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
-" inoremap <nul> <C-x><C-o>
+inoremap <nul> <C-x><C-o>
 
 "===================================
 " MACROS 
 "===================================
 
-" " Tabulación inteligente
-" " https://searchcode.com/codesearch/raw/83004085/
-" if exists('g:loaded_tab_wrapper') || &cp
-"   finish
-" endif
-" let g:loaded_tab_wrapper = 1
-" inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
-" inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
-" " InsertTabWrapper() {{{
-" " Tab completion of tags/keywords if not at the beginning of the line.
-" function! InsertTabWrapper(forward)
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"     return "\<tab>"
-"   elseif a:forward
-"     return "\<c-p>"
-"   else
-"     return "\<c-n>"
-"   endif
-" endfunction
-" " InsertTabWrapper() }}}
+" Tabulación inteligente
+" https://searchcode.com/codesearch/raw/83004085/
+if exists('g:loaded_tab_wrapper') || &cp
+  finish
+endif
+let g:loaded_tab_wrapper = 1
+inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
+inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
+" InsertTabWrapper() {{{
+" Tab completion of tags/keywords if not at the beginning of the line.
+function! InsertTabWrapper(forward)
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    return "\<tab>"
+  elseif a:forward
+    return "\<c-p>"
+  else
+    return "\<c-n>"
+  endif
+endfunction
+" InsertTabWrapper() }}}
 
 "===================================
 " TIPOS DE ARCHIVOS
