@@ -142,7 +142,7 @@ Plug 'shawncplus/phpcomplete.vim'
 
 " Autocompletado mientras se escribe
 Plug 'davidhalter/jedi-vim'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 
 " Status line
 Plug 'itchyny/lightline.vim'
@@ -260,33 +260,66 @@ endfunction
 "filetype plugin on
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 
+" function! OpenCompletion()
+"     if !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
+"         call feedkeys("\<C-x>\<C-o>", "n")
+"     endif
+" endfunction
+" autocmd InsertCharPre * call OpenCompletion()
+
+" https://gist.github.com/maxboisvert/a63e96a67d0a83d71e9f49af73e71d93
+" Minimalist-TabComplete-Plugin
+inoremap <expr> <Tab> TabComplete()
+fun! TabComplete()
+    if getline('.')[col('.') - 2] =~ '\K' || pumvisible()
+        return "\<C-P>"
+    else
+        return "\<Tab>"
+    endif
+endfun
+" Minimalist-AutoCompletePop-Plugin
+set completeopt=menu,menuone,noinsert
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>" : "\<CR>"
+autocmd InsertCharPre * call AutoComplete()
+fun! AutoComplete()
+    if v:char =~ '\K'
+        \ && getline('.')[col('.') - 4] !~ '\K'
+        \ && getline('.')[col('.') - 3] =~ '\K'
+        \ && getline('.')[col('.') - 2] =~ '\K' " last char
+        \ && getline('.')[col('.') - 1] !~ '\K'
+
+        call feedkeys("\<C-P>", 'n')
+    end
+endfun
+
+
 inoremap <nul> <C-x><C-o>
 
 "===================================
 " MACROS 
 "===================================
 
-" Tabulación inteligente
-" https://searchcode.com/codesearch/raw/83004085/
-if exists('g:loaded_tab_wrapper') || &cp
-  finish
-endif
-let g:loaded_tab_wrapper = 1
-inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
-inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
-" InsertTabWrapper() {{{
-" Tab completion of tags/keywords if not at the beginning of the line.
-function! InsertTabWrapper(forward)
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  elseif a:forward
-    return "\<c-p>"
-  else
-    return "\<c-n>"
-  endif
-endfunction
-" InsertTabWrapper() }}}
+" " Tabulación inteligente
+" " https://searchcode.com/codesearch/raw/83004085/
+" if exists('g:loaded_tab_wrapper') || &cp
+"   finish
+" endif
+" let g:loaded_tab_wrapper = 1
+" inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
+" inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
+" " InsertTabWrapper() {{{
+" " Tab completion of tags/keywords if not at the beginning of the line.
+" function! InsertTabWrapper(forward)
+"   let col = col('.') - 1
+"   if !col || getline('.')[col - 1] !~ '\k'
+"     return "\<tab>"
+"   elseif a:forward
+"     return "\<c-p>"
+"   else
+"     return "\<c-n>"
+"   endif
+" endfunction
+" " InsertTabWrapper() }}}
 
 "===================================
 " TIPOS DE ARCHIVOS
