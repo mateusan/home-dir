@@ -194,6 +194,8 @@ let g:syntastic_check_on_wq = 0
 map <F9> :SyntasticCheck<CR>
 imap <F9> :SyntasticCheck<CR>
 
+" No identar comentarios
+let g:PHP_autoformatcomment = 0
 
 " Mostrar barra de status / itchyny/lightline.vim
 set laststatus=2
@@ -304,34 +306,7 @@ fun! AutoComplete()
     end
 endfun
 
-
 inoremap <nul> <C-x><C-o>
-
-"===================================
-" MACROS 
-"===================================
-
-" " Tabulación inteligente
-" " https://searchcode.com/codesearch/raw/83004085/
-" if exists('g:loaded_tab_wrapper') || &cp
-"   finish
-" endif
-" let g:loaded_tab_wrapper = 1
-" inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
-" inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
-" " InsertTabWrapper() {{{
-" " Tab completion of tags/keywords if not at the beginning of the line.
-" function! InsertTabWrapper(forward)
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"     return "\<tab>"
-"   elseif a:forward
-"     return "\<c-p>"
-"   else
-"     return "\<c-n>"
-"   endif
-" endfunction
-" " InsertTabWrapper() }}}
 
 "===================================
 " TIPOS DE ARCHIVOS
@@ -380,30 +355,30 @@ endfunction
 "===================================
 
 " abrir nuevo tab
-noremap 		<leader>t     	 	:tabnew
-"map 			<C-t>         		 :tabnew<CR>
+noremap 	<leader>t		:tabnew
+"map 		<C-t>			:tabnew<CR>
 " mover la sub-ventana a una pestaña nueva
-noremap 		<leader>w 			<C-W>T
+noremap 	<leader>w		<C-W>T
 " movimiento de pestañas
-map 			<C-left> 			:tabprevious<CR>
-map 			<C-right> 			:tabnext<CR>
+map 		<C-left> 		:tabprevious<CR>
+map 		<C-right> 		:tabnext<CR>
 "map <C-up> :tabnew<CR>
 "map <C-down> :tabclose<CR>
-noremap 		<C-S-up> 			<C-w>k
-inoremap 	<C-S-up> 			<C-w>k 
-noremap 		<C-S-down> 			<C-w>j 
-inoremap 	<C-S-down> 			<C-w>j 
-noremap 		<C-S-left> 			<C-w>h 
-inoremap 	<C-S-left> 			<C-w>h 
-noremap 		<C-S-right> 		<C-w>l
-inoremap 	<C-S-right> 		<C-w>l 
+noremap		<C-S-up> 		<C-w>k
+inoremap	<C-S-up> 		<C-w>k 
+noremap 	<C-S-down>		<C-w>j 
+inoremap	<C-S-down>		<C-w>j 
+noremap 	<C-S-left>		<C-w>h 
+inoremap	<C-S-left>		<C-w>h 
+noremap		<C-S-right> 	<C-w>l
+inoremap	<C-S-right> 	<C-w>l 
 
 
 "===================================
 " ABREVIATURAS
 "===================================
 
-nnoremap 	<leader><space> 	:tabnew><CR>:Files<CR>
+nnoremap		<leader><space> 	:tabnew><CR>:Files<CR>
 noremap 		<leader>fs 			:Files<CR>
 noremap 		<leader>hex 		:call ToggleHex()<CR>
 noremap 		<leader>etohtml 	:call Html_entities_replace()<CR>

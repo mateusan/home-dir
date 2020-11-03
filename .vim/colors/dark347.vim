@@ -8,14 +8,14 @@ set t_Co=256
 " colors 256 -> https://jonasjacek.github.io/colors/
 
 function! s:h(group, style)
-  execute "highlight" a:group
-    \ "guifg="		(has_key(a:style, "guifg")		? a:style.guifg		: "NONE")
-    \ "guibg="		(has_key(a:style, "guibg")		? a:style.guibg		: "NONE")
-    \ "guisp="		(has_key(a:style, "guisp")		? a:style.guisp		: "NONE")
-    \ "gui="		(has_key(a:style, "guisp")		? a:style.guisp		: "NONE")
-    \ "ctermbg="	(has_key(a:style, "ctermbg")	? a:style.ctermbg	: "NONE")
-    \ "ctermfg="	(has_key(a:style, "ctermfg")	? a:style.ctermfg	: "NONE")
-    \ "cterm="		(has_key(a:style, "cterm")		? a:style.cterm		: "NONE")
+	execute "highlight" a:group
+		\ "guifg="		(has_key(a:style, "guifg")		? a:style.guifg		: "NONE")
+		\ "guibg="		(has_key(a:style, "guibg")		? a:style.guibg		: "NONE")
+		\ "guisp="		(has_key(a:style, "guisp")		? a:style.guisp		: "NONE")
+		\ "gui="		(has_key(a:style, "gui")		? a:style.gui		: "NONE")
+		\ "ctermbg="	(has_key(a:style, "ctermbg")	? a:style.ctermbg	: "NONE")
+		\ "ctermfg="	(has_key(a:style, "ctermfg")	? a:style.ctermfg	: "NONE")
+		\ "cterm="		(has_key(a:style, "cterm")		? a:style.cterm		: "NONE")
 endfunction
 
 call s:h( 'Normal',						{ 'guibg': '#000000', 'ctermbg': 0 })
@@ -33,8 +33,8 @@ call s:h( 'phpDocNamespaceSeparator', 	{ 'guifg': '#ffff5f', 'ctermfg': 227 })
 call s:h( 'phpClassNamespaceSeparator', { 'guifg': '#ffff5f', 'ctermfg': 227 })
 call s:h( 'phpDocTags', 				{ 'guifg': '#808080', 'ctermfg': 8, 'gui': 'italic,bold', 'cterm': 'italic,bold' })
 "call s:h( 'phpKeyword', 					{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold', 'cterm': 'bold' })
-call s:h( 'phpClass', 					{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold', 'cterm': 'bold,underline' })
-call s:h( 'phpStaticClasses', 			{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold', 'cterm': 'bold,underline' })
+call s:h( 'phpClass', 					{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
+call s:h( 'phpStaticClasses', 			{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
 call s:h( 'phpFunction', 				{ 'gui': 'bold', 'cterm': 'bold' })
 
 set background=dark

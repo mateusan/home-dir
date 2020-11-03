@@ -111,6 +111,28 @@ function! ToggleHex()
   endif
 endfunction
 
+" " Tabulación inteligente
+" " https://searchcode.com/codesearch/raw/83004085/
+" if exists('g:loaded_tab_wrapper') || &cp
+"   finish
+" endif
+" let g:loaded_tab_wrapper = 1
+" " InsertTabWrapper() {{{
+" " Tab completion of tags/keywords if not at the beginning of the line.
+" function! InsertTabWrapper(forward)
+"   let col = col('.') - 1
+"   if !col || getline('.')[col - 1] !~ '\k'
+"     return "\<tab>"
+"   elseif a:forward
+"     return "\<c-p>"
+"   else
+"     return "\<c-n>"
+"   endif
+" endfunction
+" " InsertTabWrapper() }}}
+" inoremap <tab> <c-r>=InsertTabWrapper(1)<cr>
+" inoremap <S-tab> <c-r>=InsertTabWrapper(0)<cr>
+
 "Here's a mapping that will show the hierarchy of the synstack() and also show the highlight links. press gm to use it. 
 function! SynStack ()
     for i1 in synstack(line("."), col("."))
