@@ -134,8 +134,9 @@ call plug#begin('~/.vim/bundle')
 " Ayuda de plug
 "Plug 'junegunn/vim-plug'
  
-" PHP vim
-Plug 'stanangeloff/php.vim'
+" PHP vim, el primera esta en el polyglot
+"Plug 'stanangeloff/php.vim'
+Plug 'sheerun/vim-polyglot'
 Plug '2072/PHP-Indenting-for-VIm'
 " Autocompletado PHP
 Plug 'shawncplus/phpcomplete.vim'
@@ -143,9 +144,6 @@ Plug 'shawncplus/phpcomplete.vim'
 " Autocompletado mientras se escribe
 Plug 'davidhalter/jedi-vim'
 "Plug 'ervandew/supertab'
-
-"Colores
-Plug 'joshdick/onedark.vim'
 
 " Status line
 Plug 'itchyny/lightline.vim'
@@ -206,18 +204,15 @@ endif
 " Mostrar siempre el tabline
 set showtabline=2
 
+colorscheme dark347
 set background=dark
-colorscheme onedark
-let g:onedark_termcolors=256
-hi Normal ctermbg=16 guibg=#000000
 
-set listchars=tab:\┆\  
+set listchars=tab:\┊\ 
 set list
 
 " Mostrar los cursores
 "set cursorcolumn
 "set cursorline
-
 
 function! LightlineFilename()
 	let name = expand('%:t') !=# '' ? expand('%:p') : '[No Name]'
