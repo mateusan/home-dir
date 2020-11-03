@@ -144,6 +144,9 @@ Plug 'shawncplus/phpcomplete.vim'
 Plug 'davidhalter/jedi-vim'
 "Plug 'ervandew/supertab'
 
+"Colores
+Plug 'joshdick/onedark.vim'
+
 " Status line
 Plug 'itchyny/lightline.vim'
 " Branch de git, ayuda a lightline.vim
@@ -153,9 +156,10 @@ Plug 'itchyny/vim-gitbranch'
 " Plugin que muestra los cambios en un repo git
 Plug 'mhinz/vim-signify'
 
-" Pinta las "rayas" de las tabulaciones
+" Pinta las "rayas" vertical para aliner solo "spacios"
 " https://github.com/Yggdroot/indentLine
-Plug 'yggdroot/indentline'
+" Plug 'yggdroot/indentline'
+"Plug 'nathanaelkane/vim-indent-guides'
 
 " Comprobación de sintaxis
 Plug 'vim-syntastic/syntastic'
@@ -201,6 +205,19 @@ endif
 
 " Mostrar siempre el tabline
 set showtabline=2
+
+set background=dark
+colorscheme onedark
+let g:onedark_termcolors=256
+hi Normal ctermbg=16 guibg=#000000
+
+set listchars=tab:\┆\  
+set list
+
+" Mostrar los cursores
+"set cursorcolumn
+"set cursorline
+
 
 function! LightlineFilename()
 	let name = expand('%:t') !=# '' ? expand('%:p') : '[No Name]'
