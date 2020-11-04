@@ -33,8 +33,8 @@ call s:h( 'phpDocNamespaceSeparator', 	{ 'guifg': '#ffff5f', 'ctermfg': 227 })
 call s:h( 'phpClassNamespaceSeparator', { 'guifg': '#ffff5f', 'ctermfg': 227 })
 call s:h( 'phpDocTags', 				{ 'guifg': '#808080', 'ctermfg': 8, 'gui': 'italic,bold', 'cterm': 'italic,bold' })
 "call s:h( 'phpKeyword', 					{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold', 'cterm': 'bold' })
-call s:h( 'phpClass', 					{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
-call s:h( 'phpStaticClasses', 			{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
-call s:h( 'phpFunction', 				{ 'gui': 'bold', 'cterm': 'bold' })
+call s:h( 'phpClass', 					{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
+call s:h( 'phpStaticClasses', 			{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
+call s:h( 'phpFunction', 				{ 'gui': 'bold,italic', 'cterm': 'bold,italic' })
 
 set background=dark
