@@ -37,4 +37,13 @@ call s:h( 'phpClass', 					{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,und
 call s:h( 'phpStaticClasses', 			{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
 call s:h( 'phpFunction', 				{ 'gui': 'bold,italic', 'cterm': 'bold,italic' })
 
+hi MGrepWindowColor         guibg=#0000ff ctermbg=blue  guifg=#000000 ctermfg=black
+hi MGrepWindowNormalColor   guibg=#005f5f ctermbg=233   guifg=#ffffff ctermfg=white
+hi MGrepWindowTabColor      guibg=#0000ff ctermbg=blue
+hi MGrepWindowTabColorCur   guibg=#ffffff ctermbg=white 
+hi MGrepMatchFileName       guibg=#000000 ctermbg=black guifg=#008000 ctermfg=green gui=italic cterm=italic
+hi MGrepMatchLineNumber     guibg=#000000 ctermbg=black guifg=#0000ff ctermfg=blue  gui=italic cterm=italic
+hi MGrepMatchLineNumber     guibg=#000000 ctermbg=black guifg=#ffffff ctermfg=white gui=bold cterm=bold
+hi MGrepMatchWord           guibg=#ff0000 ctermbg=red   guifg=#000000 ctermfg=black
+
 set background=dark

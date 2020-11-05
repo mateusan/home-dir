@@ -134,6 +134,9 @@ endif
 call plug#begin('~/.vim/bundle')
 " Ayuda de plug
 "Plug 'junegunn/vim-plug'
+
+" Plugin de búsqueda
+Plug 'mateusan/vim-mgrep', { 'branch': 'main' }
  
 " PHP vim, el primera esta en el polyglot
 "Plug 'stanangeloff/php.vim'
