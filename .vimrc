@@ -124,6 +124,7 @@ set nobackup
 
 "===================================
 " PLUGINS 
+" vim +PlugUpdate +PlugClean +qall
 "===================================
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -172,6 +173,7 @@ Plug 'aperezdc/vim-template'
 "Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " Comentarios segun tipo de fichero :Commentary
 Plug 'tpope/vim-commentary'
@@ -355,39 +357,39 @@ endfunction
 "===================================
 
 " abrir nuevo tab
-noremap 	<leader>t		:tabnew
-"map 		<C-t>			:tabnew<CR>
+noremap 	<leader>t			:tabnew
+"map 		<C-t>				:tabnew<CR>
 " mover la sub-ventana a una pestaña nueva
-noremap 	<leader>w		<C-W>T
+noremap 	<leader>w			<C-W>T
 " movimiento de pestañas
-map 		<C-left> 		:tabprevious<CR>
-map 		<C-right> 		:tabnext<CR>
+map 		<C-left> 			:tabprevious<CR>
+map 		<C-right>			:tabnext<CR>
 "map <C-up> :tabnew<CR>
 "map <C-down> :tabclose<CR>
-noremap		<C-S-up> 		<C-w>k
-inoremap	<C-S-up> 		<C-w>k 
-noremap 	<C-S-down>		<C-w>j 
-inoremap	<C-S-down>		<C-w>j 
-noremap 	<C-S-left>		<C-w>h 
-inoremap	<C-S-left>		<C-w>h 
-noremap		<C-S-right> 	<C-w>l
-inoremap	<C-S-right> 	<C-w>l 
+noremap		<C-S-up> 			<C-w>k
+inoremap	<C-S-up> 			<C-w>k 
+noremap 	<C-S-down>			<C-w>j 
+inoremap	<C-S-down>			<C-w>j 
+noremap 	<C-S-left>			<C-w>h 
+inoremap	<C-S-left>			<C-w>h 
+noremap		<C-S-right> 		<C-w>l
+inoremap	<C-S-right> 		<C-w>l 
 
 
 "===================================
 " ABREVIATURAS
 "===================================
 
-nnoremap		<leader><space> 	:tabnew><CR>:Files<CR>
-noremap 		<leader>fs 			:Files<CR>
-noremap 		<leader>hex 		:call ToggleHex()<CR>
-noremap 		<leader>etohtml 	:call Html_entities_replace()<CR>
-noremap 		<leader>etoutf  	:call Html_entities_disreplace()<CR>
-noremap 		<C-S-i> 				<C-w>+
-noremap 		<C-S-k> 				<C-w>-
-noremap 		<C-S-j>				<C-w><
-noremap 		<C-S-l>				<C-w>>
-noremap 		<leader>term      :vert :term<CR>
+nnoremap	<leader><space> 	:tabnew><CR>:CtrlP<CR>
+noremap 	<leader>fs			:CtrlP<CR>
+noremap 	<leader>hex 		:call ToggleHex()<CR>
+noremap 	<leader>etohtml 	:call Html_entities_replace()<CR>
+noremap 	<leader>etoutf  	:call Html_entities_disreplace()<CR>
+noremap 	<C-S-i>				<C-w>+
+noremap 	<C-S-k>				<C-w>-
+noremap 	<C-S-j>				<C-w><
+noremap 	<C-S-l>				<C-w>>
+noremap 	<leader>term		:vert :term<CR>
 
 
 " Macros de código

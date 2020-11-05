@@ -236,3 +236,5 @@ if which sudo &>/dev/null; then
 	alias salt='sudo salt'
 	alias salt-call='sudo salt-call --state-output=changes --state-verbose=true'
 fi
+
+alias b="grep -RniIH --color=ALWAYS --exclude-dir=data/"
