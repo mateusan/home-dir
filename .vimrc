@@ -58,7 +58,7 @@ set splitbelow
 set ruler
 " Activa el mostrar los números de linea
 set number
-"set relativenumber
+set relativenumber
 " Activa la indicación del modo
 set showmode
 " Activa la indicación de comadnos
@@ -83,7 +83,7 @@ set tabstop=4
 set shiftwidth=4
 " Tamaño del ancho de linea
 set textwidth=0
-" No cambiar de lina automÃ¡ticamente
+" No cambiar de lina automáticamente
 " set nowrap
 " El tabulador inserta verdaderas tabulaciones, no espacios
 set noexpandtab
@@ -384,6 +384,7 @@ inoremap	<C-S-right> 		<C-w>l
 "===================================
 
 nnoremap	<leader><space> 	:tabnew><CR>:CtrlP<CR>
+noremap		<leader>r			:MGrepGit
 noremap 	<leader>fs			:CtrlP<CR>
 noremap 	<leader>hex 		:call ToggleHex()<CR>
 noremap 	<leader>etohtml 	:call Html_entities_replace()<CR>
