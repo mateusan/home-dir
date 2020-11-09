@@ -15,60 +15,56 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-#Utilizando tput te limita a 80 caracteres la línea
-#Black="$(tput setaf 0)"
-#BlackBG="$(tput setab 0)"
-#DarkGrey="$(tput bold ; tput setaf 0)"
-#LightGrey="$(tput setaf 7)"
-#LightGreyBG="$(tput setab 7)"
-#White="$(tput bold ; tput setaf 7)"
-#Red="$(tput setaf 1)"
-#RedBG="$(tput setab 1)"
-#LightRed="$(tput bold ; tput setaf 1)"
-#Green="$(tput setaf 2)"
-#GreenBG="$(tput setab 2)"
-#LightGreen="$(tput bold ; tput setaf 2)"
-#Brown="$(tput setaf 3)"
-#BrownBG="$(tput setab 3)"
-#Yellow="$(tput bold ; tput setaf 3)"
-#Blue="$(tput setaf 4)"
-#BlueBG="$(tput setab 4)"
-#LightBlue="$(tput bold ; tput setaf 4)"
-#Purple="$(tput setaf 5)"
-#PurpleBG="$(tput setab 5)"
-#Pink="$(tput bold ; tput setaf 5)"
-#Cyan="$(tput setaf 6)"
-#CyanBG="$(tput setab 6)"
-#LightCyan="$(tput bold ; tput setaf 6)"
-#Normal="$(tput sgr0)" # No Color
-
 #FORMATO \[\e[ (0 = no bold, 1=bold) ; (3=fuente, 4=background) (ID:color) m\]
-Black="\[\e[0;30m\]"
-BlackBG="\[\e[0;40m\]"
-DarkGrey="\[\e[1;30m\]"
-LightGrey="\[\e[0;37m\]"
-LightGreyBG="\[\e[0;47m\]"
-White="\[\e[1;37m\]"
-Red="\[\e[0;31m\]"
-RedBG="\[\e[0;41m\]"
-LightRed="\[\e[1;31m\]"
-Green="\[\e[0;32m\]"
-GreenBG="\[\e[0;42m\]"
-LightGreen="\[\e[0;32m\]"
-Brown="\[\e[0;33m\]"
-BrownBG="\[\e[0;43m\]"
-Yellow="\[\e[1;33m\]"
-Blue="\[\e[0;34m\]"
-BlueBG="\[\e[0;44m\]"
-LightBlue="\[\e[1;34m\]"
-Purple="\[\e[0;35m\]"
-PurpleBG="\[\e[0;45m\]"
-Pink="\[\e[1;35m\]"
-Cyan="\[\e[0;36m\]"
-CyanBG="\[\e[0;46m\]"
-LightCyan="\[\e[1;36m\]"
-Normal="\[\e[0m\]"
+declare -A MS_COLORS=(
+[Color_Off]='\[\e[0m\]'
+# Foreground
+[Default]='\[\e[0;39m\]'
+[Black]='\[\e[0;30m\]'
+[DarkGrey]='\[\e[1;30m\]'
+[Red]='\[\e[0;31m\]'
+[LightRed]='\[\e[1;31m\]'
+[Green]='\[\e[0;32m\]'
+[LightGreen]='\[\e[0;32m\]'
+[Brown]='\[\e[0;33m\]'
+[Yellow]='\[\e[1;33m\]'
+[Blue]='\[\e[0;34m\]'
+[LightBlue]='\[\e[1;34m\]'
+[Purple]='\[\e[0;35m\]'
+[Pink]='\[\e[1;35m\]'
+[Cyan]='\[\e[0;36m\]'
+[LightCyan]='\[\e[1;36m\]'
+[LightGrey]='\[\e[0;37m\]'
+[White]='\[\e[1;37m\]'
+# Background
+[DefaultBG]='\[\e[49m\]'
+[BlackBG]='\[\e[40m\]'
+[DarkGreyBG]='\[\e[1;40m\]'
+[RedBG]='\[\e[41m\]'
+[LightRedBG]='\[\e[1;41m\]'
+[GreenBG]='\[\e[42m\]'
+[LightGreenBG]='\[\e[1;42m\]'
+[BrownBG]='\[\e[43m\]'
+[YellowBG]='\[\e[1;43m\]'
+[BlueBG]='\[\e[44m\]'
+[LightBlueBG]='\[\e[1;44m\]'
+[PurpleBG]='\[\e[45m\]'
+[PinkBG]='\[\e[1;45m\]'
+[CyanBG]='\[\e[46m\]'
+[LightCyanBG]='\[\e[1;46m\]'
+[LightGreyBG]='\[\e[47m\]'
+[WhiteBG]='\[\e[1;47m\]'
+)
 
+#[gitchanges]='✎'
+declare -A MS_SYMBOL=(
+[hard_separator]=""
+[soft_separator]=""
+[gitpush]='↑'
+[gitpull]='↓'
+[gitchanges]='*'
+[gitbranch]=''
+)
 
 
 # set a fancy prompt (non-color, unless we know we "want" color)
@@ -81,7 +77,6 @@ case "$TERM" in
 	;;
 esac
 
-PS1="${White}\u${Yellow}@${White}\h${Brown}:${Yellow}\w ${Brown}\$${Normal} "
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 	xterm*|rxvt*)
@@ -186,26 +181,99 @@ escapeshellarguments() {
    done
 }
 
-parse_git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
-}
 controlversion_branch_to_prompt() {
 	if [ `pwd` == "$HOME" ]; then
 		return;
 	fi
-	branch=$(parse_git_branch)
+	local gitenv="env LANG=C git"
+	local branch=$($gitenv symbolic-ref --short HEAD 2>/dev/null)
+
+	local marks='';
+
+	# scan first two lines of output from `git status`
+	while IFS= read -r line; do
+		if [[ $line =~ ^## ]]; then # header line
+			[[ $line =~ ahead\ ([0-9]+) ]] && marks+="${MS_SYMBOL[gitpush]}"
+			[[ $line =~ behind\ ([0-9]+) ]] && marks+="${MS_SYMBOL[gitpull]}"
+		else # branch is modified if output contains more lines after the header line
+			marks="${MS_SYMBOL[gitchanges]}$marks"
+			break
+		fi
+	done < <($gitenv status --porcelain --branch 2>/dev/null)  # note the space between the two <
+
 	if [ "$branch" != "" ]; then
 		remoteURL=$(git config --get remote.origin.url | grep -c "mateusan\/home\-dir" )
 		if [ $remoteURL -lt 1 ]; then
-			echo -ne " \001\e[0;31;49m\002[git:"
-			echo -ne "\001\e[1;31;49m\002 ${branch}"
-			echo -ne "\001\e[0;31;49m\002]"
+			PS1+="\e[0;31;49m[${MS_SYMBOL[gitbranch]}"
+			PS1+="\e[1;31;49m${branch}${marks}"
+			PS1+="\e[0;31;49m] "
 		fi
 	fi
 }
-# Poner el \001 002 para escapar los caracteres de escape del bash
-# https://stackoverflow.com/questions/19092488/custom-bash-prompt-is-overwriting-itself
-PS1="${White}\u${Yellow}@${White}${fqdn}${Brown}:${Yellow}\w \n${Yellow}[\D{%F %T}]\$(controlversion_branch_to_prompt) ${Brown}\$${Normal} "
+
+function ps_clear()
+{
+	PS1+="${MS_COLORS[Color_Off]}"
+}
+# $1 foregroun next
+# $2 Background prev section
+function ps_section_end()
+{
+	if [ "$__last_color" == "$2" ]; then
+		local charend="${MS_SYMBOL[soft_separator]}"
+		local fg="$1"
+	else
+		local charend="${MS_SYMBOL[hard_separator]}"
+		local fg="$__last_color"
+	fi
+	if [ -n "$__last_color" ]; then
+		PS1+="${MS_COLORS[$fg]}${MS_COLORS[${2}BG]}${charend}"
+	fi
+}
+function ps_section_text()
+{
+	PS1+="${MS_COLORS[$1]}${MS_COLORS[${2}BG]}${3}"
+	__last_color=$2
+}
+
+function ps_section_ini() {
+	ps_clear
+	PS1+="$1$2" 
+}
+function ps_command()
+{
+	# last return code
+	__return_code=$? 
+
+	local TITLEBAR='\[\e]2; \u@\h: \w \a';
+
+	PS1=""
+	# ps_section_text "White" "Black" "\u"
+
+	# ps_section_end "White" "Black"
+	# ps_section_text "Blue" "White" "${fqdn}"
+	
+	# ps_section_end "White" "White"
+	# ps_clear
+	#PS1+="\n"
+	ps_section_ini "${MS_COLORS[White]}"
+	PS1+="\u${MS_COLORS[Yellow]}@${MS_COLORS[White]}${fqdn}"
+	ps_section_ini "${MS_COLORS[Brown]}"
+	PS1+=":"
+	ps_section_ini "${MS_COLORS[Yellow]}"
+	PS1+="\w\n"
+	ps_section_ini "${MS_COLORS[Yellow]}"
+	PS1+="[\D{%F %T}] "
+	controlversion_branch_to_prompt
+	ps_section_ini "${MS_COLORS[Brown]}"
+	PS1+="\$"
+	ps_section_ini "${MS_COLORS[Brown]}"
+	ps_clear
+	PS1+=" "
+	unset __last_color
+	unset __return_code
+}
+PROMPT_COMMAND="ps_command; $PROMPT_COMMAND"
 
 
 
