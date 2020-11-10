@@ -15,45 +15,73 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
-#FORMATO \[\e[ (0 = no bold, 1=bold) ; (3=fuente, 4=background) (ID:color) m\]
+# FORMATO \[\e[ (0 = no bold, 1=bold) ; (3=fuente, 4=background) (ID:color) m\]
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
 declare -A MS_COLORS=(
-[Color_Off]='\[\e[0m\]'
+# 
+[Color_Off]='\e[0m'
+
 # Foreground
-[Default]='\[\e[0;39m\]'
-[Black]='\[\e[0;30m\]'
-[DarkGrey]='\[\e[1;30m\]'
-[Red]='\[\e[0;31m\]'
-[LightRed]='\[\e[1;31m\]'
-[Green]='\[\e[0;32m\]'
-[LightGreen]='\[\e[0;32m\]'
-[Brown]='\[\e[0;33m\]'
-[Yellow]='\[\e[1;33m\]'
-[Blue]='\[\e[0;34m\]'
-[LightBlue]='\[\e[1;34m\]'
-[Purple]='\[\e[0;35m\]'
-[Pink]='\[\e[1;35m\]'
-[Cyan]='\[\e[0;36m\]'
-[LightCyan]='\[\e[1;36m\]'
-[LightGrey]='\[\e[0;37m\]'
-[White]='\[\e[1;37m\]'
+[Default]='\e[0;39m'
+[DefaultBold]='\e[1;39m'
+
+[Black]='\e[0;30m'
+[Red]='\e[0;31m'
+[Green]='\e[0;32m'
+[Yellow]='\e[0;33m'
+[Blue]='\e[0;34m'
+[Magenta]='\e[0;35m'
+[Cyan]='\e[0;36m'
+[LightGray]='\e[0;37m'
+
+[BlackBold]='\e[1;30m'
+[RedBold]='\e[1;31m'
+[GreenBold]='\e[1;32m'
+[YellowBold]='\e[1;33m'
+[BlueBold]='\e[1;34m'
+[MagentaBold]='\e[1;35m'
+[CyanBold]='\e[1;36m'
+[LightGrayBold]='\e[1;37m'
+
+[DarkGray]='\e[0;90m'
+[LightGray]='\e[0;91m'
+[LightGreen]='\e[0;92m'
+[LightYellow]='\e[0;93m'
+[LightBlue]='\e[0;94m'
+[LightMagenta]='\e[0;95m'
+[LightCyan]='\e[0;96m'
+[White]='\e[0;97m'
+
+[DarkGrayBold]='\e[1;90m'
+[LightGrayBold]='\e[1;91m'
+[LightGreenBold]='\e[1;92m'
+[LightYellowBold]='\e[1;93m'
+[LightBlueBold]='\e[1;94m'
+[LightMagentaBold]='\e[1;95m'
+[LightCyanBold]='\e[1;96m'
+[WhiteBold]='\e[1;97m'
+
 # Background
-[DefaultBG]='\[\e[49m\]'
-[BlackBG]='\[\e[40m\]'
-[DarkGreyBG]='\[\e[1;40m\]'
-[RedBG]='\[\e[41m\]'
-[LightRedBG]='\[\e[1;41m\]'
-[GreenBG]='\[\e[42m\]'
-[LightGreenBG]='\[\e[1;42m\]'
-[BrownBG]='\[\e[43m\]'
-[YellowBG]='\[\e[1;43m\]'
-[BlueBG]='\[\e[44m\]'
-[LightBlueBG]='\[\e[1;44m\]'
-[PurpleBG]='\[\e[45m\]'
-[PinkBG]='\[\e[1;45m\]'
-[CyanBG]='\[\e[46m\]'
-[LightCyanBG]='\[\e[1;46m\]'
-[LightGreyBG]='\[\e[47m\]'
-[WhiteBG]='\[\e[1;47m\]'
+[DefaultBG]='\e[49m'
+
+[BlackBG]='\e[40m'
+[RedBG]='\e[41m'
+[GreenBG]='\e[42m'
+[YellowBG]='\e[43m'
+[BlueBG]='\e[44m'
+[MagentaBG]='\e[45m'
+[CyanBG]='\e[46m'
+[LightGrayBG]='\e[47m'
+
+[DarkGrayBG]='\e[100m'
+[LightRedBG]='\e[101m'
+[LightGreenBG]='\e[102m'
+[LightYellowBG]='\e[103m'
+[LightBlueBG]='\e[104m'
+[LightMagentaBG]='\e[105m'
+[LightCyanBG]='\e[106m'
+[WhiteBG]='\e[107m'
+
 )
 
 #[gitchanges]='✎'
@@ -64,6 +92,10 @@ declare -A MS_SYMBOL=(
 [gitpull]='↓'
 [gitchanges]='*'
 [gitbranch]=''
+[return_code]='⚑'
+[background_jobs]="⏎"
+[ssh]="‡"
+[local]='§'
 )
 
 
@@ -204,9 +236,9 @@ controlversion_branch_to_prompt() {
 	if [ "$branch" != "" ]; then
 		remoteURL=$(git config --get remote.origin.url | grep -c "mateusan\/home\-dir" )
 		if [ $remoteURL -lt 1 ]; then
-			PS1+="\e[0;31;49m[${MS_SYMBOL[gitbranch]}"
-			PS1+="\e[1;31;49m${branch}${marks}"
-			PS1+="\e[0;31;49m] "
+			ps_section_end 'Red'
+			ps_section_text "RedBold" " ${MS_SYMBOL[gitbranch]} ${branch}"
+			ps_section_text "LightMagentaBold" "${marks} "
 		fi
 	fi
 }
@@ -215,63 +247,81 @@ function ps_clear()
 {
 	PS1+="${MS_COLORS[Color_Off]}"
 }
-# $1 foregroun next
-# $2 Background prev section
-function ps_section_end()
-{
-	if [ "$__last_color" == "$2" ]; then
-		local charend="${MS_SYMBOL[soft_separator]}"
-		local fg="$1"
-	else
-		local charend="${MS_SYMBOL[hard_separator]}"
-		local fg="$__last_color"
-	fi
-	if [ -n "$__last_color" ]; then
-		PS1+="${MS_COLORS[$fg]}${MS_COLORS[${2}BG]}${charend}"
-	fi
-}
 function ps_section_text()
 {
-	PS1+="${MS_COLORS[$1]}${MS_COLORS[${2}BG]}${3}"
-	__last_color=$2
+	PS1+="${MS_COLORS[$1]}${MS_COLORS[${__last_color}BG]}${2}"
+}
+function ps_section_flag()
+{
+	__FLAGS+="${MS_COLORS[$1]}${2} "
+}
+function ps_section_ini()
+{
+	PS1+="${MS_COLORS[$__last_color]}${MS_COLORS[${1}BG]}${MS_SYMBOL[soft_separator]}"
+	__last_color=$1
+}
+function ps_section_end()
+{
+	PS1+="${MS_COLORS[$__last_color]}${MS_COLORS[${1}BG]}${MS_SYMBOL[hard_separator]}"
+	__last_color=$1
 }
 
-function ps_section_ini() {
-	ps_clear
-	PS1+="$1$2" 
-}
 function ps_command()
 {
 	# last return code
 	__return_code=$? 
+	__last_color='Blue';
+	__last_color='White';
 
-	local TITLEBAR='\[\e]2; \u@\h: \w \a';
-
-	PS1=""
-	# ps_section_text "White" "Black" "\u"
-
-	# ps_section_end "White" "Black"
-	# ps_section_text "Blue" "White" "${fqdn}"
+	PS1=''
+	local __FLAGS=''
+    
+	if [[ "${SSH_CLIENT}" || "${SSH_TTY}" ]]; then
+		ps_section_text "BlackBold" "${MS_SYMBOL[ssh]}SSH"
+	else
+		ps_section_text "BlackBold" "${MS_SYMBOL[local]}"
+	fi
 	
-	# ps_section_end "White" "White"
-	# ps_clear
-	#PS1+="\n"
-	ps_section_ini "${MS_COLORS[White]}"
-	PS1+="\u${MS_COLORS[Yellow]}@${MS_COLORS[White]}${fqdn}"
-	ps_section_ini "${MS_COLORS[Brown]}"
-	PS1+=":"
-	ps_section_ini "${MS_COLORS[Yellow]}"
-	PS1+="\w\n"
-	ps_section_ini "${MS_COLORS[Yellow]}"
-	PS1+="[\D{%F %T}] "
+	ps_section_end "Blue"
+
+
+#	ps_section_end  "Black"
+	#ps_section_text "WhiteBold" " \D{%F %T} "
+	#ps_section_end "Blue"
+
+	name="\u"
+	name+="${MS_COLORS[LightYellowBold]}@"
+	name+="${MS_COLORS[WhiteBold]}${fqdn}"
+	ps_section_text "WhiteBold" " $name "
+	
+
+	ps_section_end  "LightBlue"
+	ps_section_text "Black" " \w "
 	controlversion_branch_to_prompt
-	ps_section_ini "${MS_COLORS[Brown]}"
-	PS1+="\$"
-	ps_section_ini "${MS_COLORS[Brown]}"
+    local number_jobs=$(jobs -p | wc -l | tr -d [:space:])
+    if [ ! "$number_jobs" -eq 0 ]; then
+		ps_section_flag "BlueBold" "${MS_SYMBOL[background_jobs]}$number_jobs"
+    fi
+	if [ ! "$__return_code" -eq 0 ]; then
+		ps_section_flag "RedBold" "${MS_SYMBOL[return_code]}$__return_code"
+	fi
+	if [ ! -z "$__FLAGS" ]; then
+		ps_section_end "White"
+		ps_section_text "Black" " ${__FLAGS}"
+	fi
+	ps_section_end "Default"
+	PS1+="\n"
+
 	ps_clear
-	PS1+=" "
+	
+	ps_section_text "LightYellowBold" "[\D{%F %T}] "
+	ps_section_text "Yellow" "\$"
+	ps_clear
+	# Erase EOL
+	PS1+="\[\e[K\] "
 	unset __last_color
 	unset __return_code
+	unset __FLAGS
 }
 PROMPT_COMMAND="ps_command; $PROMPT_COMMAND"
 
