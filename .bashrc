@@ -17,6 +17,7 @@ shopt -s checkwinsize
 
 # FORMATO \[\e[ (0 = no bold, 1=bold) ; (3=fuente, 4=background) (ID:color) m\]
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
+# ( for i in "${!MS_COLORS[@]}"; do echo -e "${i}::: ${MS_COLORS[$i]}${i}\e[0m"; done ) | sort
 declare -A MS_COLORS=(
 # 
 [Color_Off]='\e[0m'
