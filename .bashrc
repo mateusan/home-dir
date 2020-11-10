@@ -296,8 +296,8 @@ function ps_command()
 	ps_section_text "WhiteBold" " $name "
 	
 
-	ps_section_end  "DarkGray"
-	ps_section_text "GreenBold" " \w "
+	ps_section_end  "LightBlue"
+	ps_section_text "Black" " \w "
 	controlversion_branch_to_prompt
     local number_jobs=$(jobs -p | wc -l | tr -d [:space:])
     if [ ! "$number_jobs" -eq 0 ]; then
