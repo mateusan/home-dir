@@ -225,6 +225,9 @@ controlversion_branch_to_prompt() {
 
 	# scan first two lines of output from `git status`
 	while IFS= read -r line; do
+		if [[ $line =~ ^\?\? ]]; then
+			continue
+		fi
 		if [[ $line =~ ^## ]]; then # header line
 			[[ $line =~ ahead\ ([0-9]+) ]] && marks+="${MS_SYMBOL[gitpush]}"
 			[[ $line =~ behind\ ([0-9]+) ]] && marks+="${MS_SYMBOL[gitpull]}"
