@@ -95,7 +95,8 @@ declare -A MS_SYMBOL=(
 [gitbranch]=''
 [return_code]='⚑'
 [background_jobs]="⏎"
-[ssh]="‡"
+[readonly]=''
+[ssh]="⦗ssh⦘"
 [local]='§'
 )
 
@@ -281,7 +282,7 @@ function ps_command()
 	local __FLAGS=''
     
 	if [[ "${SSH_CLIENT}" || "${SSH_TTY}" ]]; then
-		ps_section_text "BlackBold" "${MS_SYMBOL[ssh]}SSH"
+		ps_section_text "BlackBold" "${MS_SYMBOL[ssh]}"
 	else
 		ps_section_text "BlackBold" "${MS_SYMBOL[local]}"
 	fi
@@ -303,6 +304,9 @@ function ps_command()
 	ps_section_text "Black" " \w "
 	controlversion_branch_to_prompt
     local number_jobs=$(jobs -p | wc -l | tr -d [:space:])
+	if [ ! -w "$PWD" ]; then
+		ps_section_flag "BlackBold" "${MS_SYMBOL[readonly]}"
+	fi
     if [ ! "$number_jobs" -eq 0 ]; then
 		ps_section_flag "BlueBold" "${MS_SYMBOL[background_jobs]}$number_jobs"
     fi
