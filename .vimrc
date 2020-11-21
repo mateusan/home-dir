@@ -66,6 +66,7 @@ set showcmd
 " Activa el coloreado de sintaxis
 syntax enable
 syntax sync minlines=20000
+autocmd BufEnter * syntax sync fromstart
 " Cuando se cierrar parentesis, llaves, corchetes, etc. muestra su pareja (sm)
 set showmatch
 " Muestra el titulo del archivo
