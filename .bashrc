@@ -303,7 +303,8 @@ function ps_command()
 	ps_section_end  "LightBlue"
 	ps_section_text "Black" " \w "
 	controlversion_branch_to_prompt
-    local number_jobs=$(jobs -p | wc -l | tr -d [:space:])
+    ##local number_jobs=$(jobs -p | wc -l | tr -d [:space:])
+    local number_jobs=$(jobs -p | wc -l | sed "s/[^0-9]//g")
 	if [ ! -w "$PWD" ]; then
 		ps_section_flag "BlackBold" "${MS_SYMBOL[readonly]}"
 	fi

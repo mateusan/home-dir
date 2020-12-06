@@ -351,7 +351,7 @@ endfunction
 
 function Tpl()
 	call PhpFunctions()
-	:set filetype=html
+	:set filetype=php
 	":set tw=0
 endfunction
 
