@@ -20,68 +20,68 @@ shopt -s checkwinsize
 # ( for i in "${!MS_COLORS[@]}"; do echo -e "${i}::: ${MS_COLORS[$i]}${i}\e[0m"; done ) | sort
 declare -A MS_COLORS=(
 # 
-[Color_Off]='\e[0m'
+[Color_Off]='\[\e[0m\]'
 
 # Foreground
-[Default]='\e[0;39m'
-[DefaultBold]='\e[1;39m'
+[Default]='\[\e[0;39m\]'
+[DefaultBold]='\[\e[1;39m\]'
 
-[Black]='\e[0;30m'
-[Red]='\e[0;31m'
-[Green]='\e[0;32m'
-[Yellow]='\e[0;33m'
-[Blue]='\e[0;34m'
-[Magenta]='\e[0;35m'
-[Cyan]='\e[0;36m'
-[LightGray]='\e[0;37m'
+[Black]='\[\e[0;30m\]'
+[Red]='\[\e[0;31m\]'
+[Green]='\[\e[0;32m\]'
+[Yellow]='\[\e[0;33m\]'
+[Blue]='\[\e[0;34m\]'
+[Magenta]='\[\e[0;35m\]'
+[Cyan]='\[\e[0;36m\]'
+[LightGray]='\[\e[0;37m\]'
 
-[BlackBold]='\e[1;30m'
-[RedBold]='\e[1;31m'
-[GreenBold]='\e[1;32m'
-[YellowBold]='\e[1;33m'
-[BlueBold]='\e[1;34m'
-[MagentaBold]='\e[1;35m'
-[CyanBold]='\e[1;36m'
-[LightGrayBold]='\e[1;37m'
+[BlackBold]='\[\e[1;30m\]'
+[RedBold]='\[\e[1;31m\]'
+[GreenBold]='\[\e[1;32m\]'
+[YellowBold]='\[\e[1;33m\]'
+[BlueBold]='\[\e[1;34m\]'
+[MagentaBold]='\[\e[1;35m\]'
+[CyanBold]='\[\e[1;36m\]'
+[LightGrayBold]='\[\e[1;37m\]'
 
-[DarkGray]='\e[0;90m'
-[LightGray]='\e[0;91m'
-[LightGreen]='\e[0;92m'
-[LightYellow]='\e[0;93m'
-[LightBlue]='\e[0;94m'
-[LightMagenta]='\e[0;95m'
-[LightCyan]='\e[0;96m'
-[White]='\e[0;97m'
+[DarkGray]='\[\e[0;90m\]'
+[LightGray]='\[\e[0;91m\]'
+[LightGreen]='\[\e[0;92m\]'
+[LightYellow]='\[\e[0;93m\]'
+[LightBlue]='\[\e[0;94m\]'
+[LightMagenta]='\[\e[0;95m\]'
+[LightCyan]='\[\e[0;96m\]'
+[White]='\[\e[0;97m\]'
 
-[DarkGrayBold]='\e[1;90m'
-[LightGrayBold]='\e[1;91m'
-[LightGreenBold]='\e[1;92m'
-[LightYellowBold]='\e[1;93m'
-[LightBlueBold]='\e[1;94m'
-[LightMagentaBold]='\e[1;95m'
-[LightCyanBold]='\e[1;96m'
-[WhiteBold]='\e[1;97m'
+[DarkGrayBold]='\[\e[1;90m\]'
+[LightGrayBold]='\[\e[1;91m\]'
+[LightGreenBold]='\[\e[1;92m\]'
+[LightYellowBold]='\[\e[1;93m\]'
+[LightBlueBold]='\[\e[1;94m\]'
+[LightMagentaBold]='\[\e[1;95m\]'
+[LightCyanBold]='\[\e[1;96m\]'
+[WhiteBold]='\[\e[1;97m\]'
 
 # Background
-[DefaultBG]='\e[49m'
+[DefaultBG]='\[\e[49m\]'
 
-[BlackBG]='\e[40m'
-[RedBG]='\e[41m'
-[GreenBG]='\e[42m'
-[YellowBG]='\e[43m'
-[BlueBG]='\e[44m'
-[MagentaBG]='\e[45m'
-[CyanBG]='\e[46m'
-[LightGrayBG]='\e[47m'
+[BlackBG]='\[\e[40m\]'
+[RedBG]='\[\e[41m\]'
+[GreenBG]='\[\e[42m\]'
+[YellowBG]='\[\e[43m\]'
+[BlueBG]='\[\e[44m\]'
+[MagentaBG]='\[\e[45m\]'
+[CyanBG]='\[\e[46m\]'
+[LightGrayBG]='\[\e[47m\]'
 
-[DarkGrayBG]='\e[100m'
-[LightRedBG]='\e[101m'
-[LightGreenBG]='\e[102m'
-[LightYellowBG]='\e[103m'
-[LightBlueBG]='\e[104m'
-[LightMagentaBG]='\e[105m'
-[LightCyanBG]='\e[106m'
-[WhiteBG]='\e[107m'
+[DarkGrayBG]='\[\e[100m\]'
+[LightRedBG]='\[\e[101m\]'
+[LightGreenBG]='\[\e[102m\]'
+[LightYellowBG]='\[\e[103m\]'
+[LightBlueBG]='\[\e[104m\]'
+[LightMagentaBG]='\[\e[105m\]'
+[LightCyanBG]='\[\e[106m\]'
+[WhiteBG]='\[\e[107m\]'
 
 )
 
@@ -327,7 +327,8 @@ function ps_command()
 	ps_section_text "Yellow" "\$"
 	ps_clear
 	# Erase EOL
-	PS1+="\[\e[K\] "
+#	PS1+="\[\e[K\] "
+	PS1+=" "
 	unset __last_color
 	unset __return_code
 	unset __FLAGS
