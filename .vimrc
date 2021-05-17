@@ -409,6 +409,7 @@ ab _coment /* */<ESC>hhi
 ab _linea <ESC>72i*<ESC>i
 ab _linea2 <ESC>72i=<ESC>i
 ab _htmlscript <script language="JavaScript" type="text/javascript"><CR><!--//--><![CDATA[//><!--<CR>//--><!]]><CR></script><CR>
+ab dddp #deploy-production
 
 "===================================
 " CARGA DE ENTORNO
