@@ -58,7 +58,7 @@ set splitbelow
 set ruler
 " Activa el mostrar los números de linea
 set number
-set relativenumber
+"set relativenumber
 " Activa la indicación del modo
 set showmode
 " Activa la indicación de comadnos
