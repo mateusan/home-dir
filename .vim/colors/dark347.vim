@@ -34,8 +34,18 @@ call s:h( 'phpClassNamespaceSeparator', { 'guifg': '#ffff5f', 'ctermfg': 227 })
 call s:h( 'phpDocTags', 				{ 'guifg': '#808080', 'ctermfg': 8, 'gui': 'italic,bold', 'cterm': 'italic,bold' })
 "call s:h( 'phpKeyword', 					{ 'guifg': '#a8e332', 'ctermfg': 148, 'gui': 'bold', 'cterm': 'bold' })
 call s:h( 'phpClass', 					{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
+"call s:h( 'phpRegion', 					{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
+call s:h( 'phpUseClass', 				{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
 call s:h( 'phpStaticClasses', 			{ 'guifg': '#00af00', 'ctermfg': 34, 'gui': 'bold,underline', 'cterm': 'bold,underline' })
 call s:h( 'phpFunction', 				{ 'gui': 'bold,italic', 'cterm': 'bold,italic' })
+call s:h( 'phpNullValue',					{ 'guifg': '#ff0000', 'ctermfg': 'red' })
+
+call s:h( 'phpDecorator',					{ 'guifg': '#870000', 'ctermfg': '88', 'cterm': 'italic,bold', 'gui': 'bold,italic' })
+call s:h( 'phpMemberSelector',				{ 'guifg': '#ffff5f', 'ctermfg': '227', 'cterm': 'bold', 'gui': 'bold' })
+call s:h( 'phpFunctions',					{ 'guifg': '#eeeeee', 'ctermfg': '231' })
+
+"classess php, exception, etc...
+"call s:h( 'phpClasses',					{ 'guifg': '#ff0000', 'ctermfg': 'red', 'cterm': 'italic', 'gui': 'italic' })
 
 hi MGrepWindowColor         guibg=#0000ff ctermbg=blue  guifg=#000000 ctermfg=black
 hi MGrepWindowNormalColor   guibg=#005f5f ctermbg=233   guifg=#ffffff ctermfg=white

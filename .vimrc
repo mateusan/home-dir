@@ -412,6 +412,20 @@ ab _htmlscript <script language="JavaScript" type="text/javascript"><CR><!--//--
 ab dddp #deploy-production
 
 "===================================
+" PHP VIM Overriding
+"===================================
+
+" .vim/after/syntax/php.vim
+function! PhpSyntaxOverride()
+	" Put snippet overrides in this function.
+endfunction
+
+augroup phpSyntaxOverride
+	autocmd!
+	autocmd FileType php call PhpSyntaxOverride()
+augroup END
+
+"===================================
 " CARGA DE ENTORNO
 "===================================
 
